@@ -1,0 +1,6 @@
+[submodule "Packages/Acting"]
+	path = Packages/Acting
+	url = git@github.com:YuriAICruz/Unity-Acting.git
+[submodule "Packages/Utils"]
+	path = Packages/Utils
+	url = git@github.com:YuriAICruz/Unity-Utils.git
