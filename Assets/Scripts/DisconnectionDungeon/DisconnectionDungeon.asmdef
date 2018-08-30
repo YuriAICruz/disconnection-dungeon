@@ -1,0 +1,14 @@
+{
+    "name": "DisconnectionDungeon",
+    "references": [
+        "Graphene.Acting",
+        "Physics",
+        "Utils",
+        "GameManagement",
+        "UiGenerics"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false
+}
