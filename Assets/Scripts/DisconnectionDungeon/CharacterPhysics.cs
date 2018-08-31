@@ -3,7 +3,7 @@ using Graphene.Physics;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace DisconnectionDungeon
+namespace Graphene.DisconnectionDungeon
 {
     [Serializable]
     public class CharacterPhysics : PhysycsBase
@@ -25,7 +25,7 @@ namespace DisconnectionDungeon
             }
         }
 
-        public bool CheckCollision(Vector3 position, Vector2Int dir)
+        public bool CheckCollision(Vector3 position, Vector2Int dir, bool cast = true)
         {
             if (_collisionMask == null)
                 CalculateCollisionMask();
@@ -36,10 +36,18 @@ namespace DisconnectionDungeon
 
             if (!_collisionMask[pos.x, pos.y])
                 return true;
+
+            if (!cast) return false;
             
             var hit = Physics2D.Raycast(position, dir, 1);
             
-            return hit.collider != null && !hit.collider.isTrigger;
+            if (hit.collider != null && !hit.collider.isTrigger)
+            {
+                if (OnCollisionEnter != null) OnCollisionEnter(hit);
+                return true;
+            }
+            
+            return false;
         }
 
         private void CheckTrigger(Vector3 position, Vector2Int dir)

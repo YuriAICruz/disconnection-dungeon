@@ -1,7 +1,8 @@
 ﻿using Graphene.Acting;
+using Graphene.DisconnectionDungeon.Collectable;
 using UnityEngine;
 
-namespace DisconnectionDungeon.Collectable
+namespace Graphene.DisconnectionDungeon.Interactible
 {
     public class DoorButton : TriggerObject, IInteractible
     {

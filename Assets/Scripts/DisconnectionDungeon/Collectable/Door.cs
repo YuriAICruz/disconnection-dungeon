@@ -3,10 +3,10 @@ using Graphene.Acting;
 using Graphene.Acting.Collectables;
 using UnityEngine;
 
-namespace DisconnectionDungeon.Collectable
+namespace Graphene.DisconnectionDungeon.Collectable
 {
     [RequireComponent(typeof(BoxCollider2D))]
-    public class Door : MonoBehaviour, ICollectable
+    public class Door : MonoBehaviour
     {
         private BoxCollider2D _collider;
         
@@ -37,16 +37,6 @@ namespace DisconnectionDungeon.Collectable
             _isOpen = false;
             _closed.SetActive(true);            
             _opened.SetActive(false);
-        }
-
-        public void Collect(Actor actor)
-        {
-            if(!_isOpen) return;
-
-            var player = (Player) actor;
-            if(player == null) return;
-
-            player.Transport(TransportPosition, false);
         }
     }
 }
