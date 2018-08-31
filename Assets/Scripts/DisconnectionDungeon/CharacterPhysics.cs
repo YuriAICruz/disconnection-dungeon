@@ -25,7 +25,7 @@ namespace Graphene.DisconnectionDungeon
             }
         }
 
-        public bool CheckCollision(Vector3 position, Vector2Int dir, bool cast = true)
+        public bool CheckCollision(Vector3 position, Vector2Int dir)
         {
             if (_collisionMask == null)
                 CalculateCollisionMask();
@@ -37,9 +37,9 @@ namespace Graphene.DisconnectionDungeon
             if (!_collisionMask[pos.x, pos.y])
                 return true;
 
-            if (!cast) return false;
-            
-            var hit = Physics2D.Raycast(position, dir, 1);
+            _collider.enabled = false;
+            var hit = Physics2D.Raycast(position, dir, 1, _layerMask);
+            _collider.enabled = true;
             
             if (hit.collider != null && !hit.collider.isTrigger)
             {
@@ -52,7 +52,7 @@ namespace Graphene.DisconnectionDungeon
 
         private void CheckTrigger(Vector3 position, Vector2Int dir)
         {
-            var hit = Physics2D.Raycast(position, dir, 1);
+            var hit = Physics2D.Raycast(position, dir, 1, _layerMask);
 
             if (hit.collider == null || !hit.collider.isTrigger) return;
 

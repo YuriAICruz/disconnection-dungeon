@@ -20,6 +20,7 @@ namespace Graphene.DisconnectionDungeon.Collectable
             _collider = GetComponent<BoxCollider2D>();
             _collider.isTrigger = false;
 
+            Physics.SetCollider(_collider);
             Physics.OnTriggerEnter += OnTrigger;
         }
 
@@ -34,7 +35,7 @@ namespace Graphene.DisconnectionDungeon.Collectable
 
             var dirInt = new Vector2Int((int) Mathf.Ceil(dir.x), (int) Mathf.Ceil(dir.y));
 
-            if (_moving || Physics.CheckCollision(transform.position, dirInt, false)) return;
+            if (_moving || Physics.CheckCollision(transform.position, dirInt)) return;
 
             StartCoroutine(Mover(dirInt, player.Physics.Speed));
         }

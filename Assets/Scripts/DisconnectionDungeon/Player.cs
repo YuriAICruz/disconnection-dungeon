@@ -31,6 +31,8 @@ namespace Graphene.DisconnectionDungeon
             _input.Interact += Interact;
 
             _renderer = GetComponent<SpriteRenderer>();
+            
+            Physics.SetCollider(GetComponent<Collider2D>());
 
             Physics.OnTriggerEnter += OnTriggered;
             Physics.OnCollisionEnter += OnCollided;
