@@ -1,4 +1,5 @@
-﻿using Graphene.Acting;
+﻿using System.Collections.Generic;
+using Graphene.Acting;
 using Graphene.DisconnectionDungeon.Collectable;
 using UnityEngine;
 
@@ -8,21 +9,31 @@ namespace Graphene.DisconnectionDungeon.Interactible
     {
         public Door door;
 
-        [SerializeField] private bool _isOpen;
+        public bool IsOpen;
+
+        public List<DoorButton> CoButtons;
 
         void Start()
         {
+            if (!CoButtons.Contains(this))
+                CoButtons.Add(this);
+            
+            IsOpen = !IsOpen;
             Interact();
         }
 
         public void Interact()
         {
-            _isOpen = !_isOpen;
-            
-            if (_isOpen)
-                door.Close();
-            else
+            IsOpen = !IsOpen;
+
+            if (CoButtons.FindAll(x => x.IsOpen).Count == CoButtons.Count)
+            {
                 door.Open();
+            }
+            else
+            {
+                door.Close();
+            }
         }
     }
 }

@@ -41,7 +41,12 @@ namespace Graphene.DisconnectionDungeon
             }
         }
 
-        private void Start()
+        private void Awake()
+        {
+            Load();
+        }
+
+        private void Load()
         {
             _progress = SaveData.Load<LevelProgress>("progressdata");
 
@@ -51,8 +56,13 @@ namespace Graphene.DisconnectionDungeon
 
                 _progress.CurrentLevel = 0;
                 _progress.LevelScores = new List<int>();
-                SaveData.Save(_progress, "progressdata");
+                Save();
             }
+        }
+
+        private void Save()
+        {
+            SaveData.Save(_progress, "progressdata");
         }
 
         private void UpdateProgress()
@@ -79,6 +89,7 @@ namespace Graphene.DisconnectionDungeon
             if (_selectedLevel < _progress.CurrentLevel) return;
 
             _progress.CurrentLevel = _selectedLevel + 1;
+            Save();
         }
 
         public int GetCurrentLevel()

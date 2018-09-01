@@ -9,7 +9,7 @@ namespace Graphene.DisconnectionDungeon.InputSystem
     public class InputManager
     {
         private Coroutine _update;
-        public event Action Interact;
+        public event Action Interact, Pause;
         public event Action<Vector2> Direction; 
         
         public InputManager()
@@ -22,6 +22,11 @@ namespace Graphene.DisconnectionDungeon.InputSystem
             if (Input.GetButtonDown("Fire1"))
             {
                 if (Interact != null) Interact();
+            }
+
+            if (Input.GetButtonDown("Pause"))
+            {
+                if (Pause != null) Pause();
             }
 
             if (Direction != null)

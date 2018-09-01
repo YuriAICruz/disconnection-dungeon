@@ -29,6 +29,7 @@ namespace Graphene.DisconnectionDungeon
             _input = new InputManager();
             _input.Direction += Move;
             _input.Interact += Interact;
+            _input.Pause += Pause;
 
             _renderer = GetComponent<SpriteRenderer>();
             
@@ -36,6 +37,11 @@ namespace Graphene.DisconnectionDungeon
 
             Physics.OnTriggerEnter += OnTriggered;
             Physics.OnCollisionEnter += OnCollided;
+        }
+
+        private void Start()
+        {
+            _manager = DDManager.Instance;
         }
 
         private void OnDestroy()
@@ -120,9 +126,9 @@ namespace Graphene.DisconnectionDungeon
             _currentIntreactible.Interact();
         }
 
-        private void Start()
+        private void Pause()
         {
-            _manager = DDManager.Instance;
+            _manager.OnPause();
         }
 
         private void Die()
