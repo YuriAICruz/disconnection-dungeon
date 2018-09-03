@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace DisconnectionDungeon.Collectable
+namespace Graphene.DisconnectionDungeon.Collectable
 {
     [RequireComponent(typeof(BoxCollider2D))]
     public class TriggerObject : MonoBehaviour

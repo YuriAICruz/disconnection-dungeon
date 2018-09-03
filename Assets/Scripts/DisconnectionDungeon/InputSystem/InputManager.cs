@@ -4,16 +4,17 @@ using System.IO;
 using Graphene.Utils;
 using UnityEngine;
 
-namespace DisconnectionDungeon.InputSystem
+namespace Graphene.DisconnectionDungeon.InputSystem
 {
     public class InputManager
     {
-        public event Action Interact;
+        private Coroutine _update;
+        public event Action Interact, Pause;
         public event Action<Vector2> Direction; 
         
         public InputManager()
         {
-            GlobalCoroutineManager.Instance.StartCoroutine(ReadInputs());
+            _update = GlobalCoroutineManager.Instance.StartCoroutine(ReadInputs());
         }
 
         private void GetInputs()
@@ -21,6 +22,11 @@ namespace DisconnectionDungeon.InputSystem
             if (Input.GetButtonDown("Fire1"))
             {
                 if (Interact != null) Interact();
+            }
+
+            if (Input.GetButtonDown("Pause"))
+            {
+                if (Pause != null) Pause();
             }
 
             if (Direction != null)
@@ -35,6 +41,14 @@ namespace DisconnectionDungeon.InputSystem
             {
                 GetInputs();
                 yield return new WaitForChangedResult();
+            }
+        }
+
+        public void OnDestroy()
+        {
+            if (_update != null)
+            {
+                GlobalCoroutineManager.Instance.StopCoroutine(_update);
             }
         }
     }

@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4781733586975078}
   - component: {fileID: 212471580624887050}
   - component: {fileID: 61943263933744384}
+  - component: {fileID: 114750897961123870}
   m_Layer: 0
   m_Name: Exit
   m_TagString: Untagged
@@ -35,7 +36,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1459375924216946}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7, y: 0, z: -0.052583463}
+  m_LocalPosition: {x: 4, y: 6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -66,6 +67,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &114750897961123870
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1459375924216946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a98aeedd60ad461fb4de204c38e0bff9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212471580624887050
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -98,9 +110,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -1033755707
+  m_SortingLayer: 1
+  m_SortingOrder: 9
   m_Sprite: {fileID: 21300138, guid: 505127720616d63439412829db7f126d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

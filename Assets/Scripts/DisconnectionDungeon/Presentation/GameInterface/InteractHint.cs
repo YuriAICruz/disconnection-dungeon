@@ -1,7 +1,8 @@
-﻿using UiGenerics;
+﻿using Graphene.DisconnectionDungeon;
+using UiGenerics;
 using UnityEngine;
 
-namespace DisconnectionDungeon.Presentation
+namespace Graphene.DisconnectionDungeon.Presentation.Pages.GameInterface
 {
     public class InteractHint : CanvasGroupView
     {
@@ -15,14 +16,26 @@ namespace DisconnectionDungeon.Presentation
 
         private void Start()
         {
-            _player = FindObjectOfType<Player>();
+            FindPlayer();
 
             Hide();
             _isShown = false;
         }
 
+        private void FindPlayer()
+        {
+            if(_player == null)
+                _player = FindObjectOfType<Player>();
+        }
+
         private void Update()
         {
+            FindPlayer();
+            
+            
+            if(_player == null)
+                return;
+            
             if (_player.CanInteract() && !_isShown)
             {
                 Show();
