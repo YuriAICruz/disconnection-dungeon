@@ -7,3 +7,9 @@
 [submodule "Packages/UiGenerics"]
 	path = Packages/UiGenerics
 	url = git@github.com:YuriAICruz/Unity-UI-Generics.git
+[submodule "Packages/LightOfSight"]
+	path = Packages/LightOfSight
+	url = git@github.com:YuriAICruz/Unity-LightOfSight.git
+[submodule "Packages/Grid"]
+	path = Packages/Grid
+	url = git@github.com:YuriAICruz/Unity-Grid.git

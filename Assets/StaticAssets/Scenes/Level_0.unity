@@ -682,15 +682,6 @@ Tilemap:
       m_ObjectToInstantiate: {fileID: 0}
       m_TileFlags: 1
       m_ColliderType: 1
-  - first: {x: -4, y: 2, z: 0}
-    second:
-      m_TileIndex: 2
-      m_TileSpriteIndex: 2
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
   - first: {x: 5, y: 2, z: 0}
     second:
       m_TileIndex: 0
@@ -713,24 +704,6 @@ Tilemap:
     second:
       m_TileIndex: 0
       m_TileSpriteIndex: 0
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
-  - first: {x: -4, y: 3, z: 0}
-    second:
-      m_TileIndex: 2
-      m_TileSpriteIndex: 2
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
-  - first: {x: 1, y: 3, z: 0}
-    second:
-      m_TileIndex: 2
-      m_TileSpriteIndex: 2
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_ObjectToInstantiate: {fileID: 0}
@@ -790,92 +763,51 @@ Tilemap:
       m_ObjectToInstantiate: {fileID: 0}
       m_TileFlags: 1
       m_ColliderType: 1
-<<<<<<< HEAD:Assets/StaticAssets/Scenes/Test.unity
-  - first: {x: -4, y: 4, z: 0}
-    second:
-      m_TileIndex: 2
-      m_TileSpriteIndex: 2
-=======
   - first: {x: 2, y: 4, z: 0}
     second:
       m_TileIndex: 0
       m_TileSpriteIndex: 0
->>>>>>> 1e6bebcea0b2871409dc5b0af33b5a3ebb815dc8:Assets/StaticAssets/Scenes/Level_0.unity
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_ObjectToInstantiate: {fileID: 0}
       m_TileFlags: 1
       m_ColliderType: 1
-<<<<<<< HEAD:Assets/StaticAssets/Scenes/Test.unity
-  - first: {x: -3, y: 4, z: 0}
-    second:
-      m_TileIndex: 2
-      m_TileSpriteIndex: 2
-=======
   - first: {x: 3, y: 4, z: 0}
     second:
       m_TileIndex: 0
       m_TileSpriteIndex: 0
->>>>>>> 1e6bebcea0b2871409dc5b0af33b5a3ebb815dc8:Assets/StaticAssets/Scenes/Level_0.unity
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_ObjectToInstantiate: {fileID: 0}
       m_TileFlags: 1
       m_ColliderType: 1
-<<<<<<< HEAD:Assets/StaticAssets/Scenes/Test.unity
-  - first: {x: -2, y: 4, z: 0}
-    second:
-      m_TileIndex: 2
-      m_TileSpriteIndex: 2
-=======
   - first: {x: 4, y: 4, z: 0}
     second:
       m_TileIndex: 0
       m_TileSpriteIndex: 0
->>>>>>> 1e6bebcea0b2871409dc5b0af33b5a3ebb815dc8:Assets/StaticAssets/Scenes/Level_0.unity
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_ObjectToInstantiate: {fileID: 0}
       m_TileFlags: 1
       m_ColliderType: 1
-<<<<<<< HEAD:Assets/StaticAssets/Scenes/Test.unity
-  - first: {x: -1, y: 4, z: 0}
-    second:
-      m_TileIndex: 2
-      m_TileSpriteIndex: 2
-=======
   - first: {x: 5, y: 4, z: 0}
     second:
       m_TileIndex: 0
       m_TileSpriteIndex: 0
->>>>>>> 1e6bebcea0b2871409dc5b0af33b5a3ebb815dc8:Assets/StaticAssets/Scenes/Level_0.unity
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_ObjectToInstantiate: {fileID: 0}
       m_TileFlags: 1
       m_ColliderType: 1
-<<<<<<< HEAD:Assets/StaticAssets/Scenes/Test.unity
-  - first: {x: 0, y: 4, z: 0}
-    second:
-      m_TileIndex: 2
-      m_TileSpriteIndex: 2
-=======
   - first: {x: 6, y: 4, z: 0}
     second:
       m_TileIndex: 0
       m_TileSpriteIndex: 0
->>>>>>> 1e6bebcea0b2871409dc5b0af33b5a3ebb815dc8:Assets/StaticAssets/Scenes/Level_0.unity
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_ObjectToInstantiate: {fileID: 0}
       m_TileFlags: 1
       m_ColliderType: 1
-<<<<<<< HEAD:Assets/StaticAssets/Scenes/Test.unity
-  - first: {x: 1, y: 4, z: 0}
-    second:
-      m_TileIndex: 2
-      m_TileSpriteIndex: 2
-=======
   - first: {x: 7, y: 4, z: 0}
     second:
       m_TileIndex: 0
@@ -907,7 +839,6 @@ Tilemap:
     second:
       m_TileIndex: 0
       m_TileSpriteIndex: 0
->>>>>>> 1e6bebcea0b2871409dc5b0af33b5a3ebb815dc8:Assets/StaticAssets/Scenes/Level_0.unity
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_ObjectToInstantiate: {fileID: 0}
@@ -915,21 +846,6 @@ Tilemap:
       m_ColliderType: 1
   m_AnimatedTiles: {}
   m_TileAssetArray:
-<<<<<<< HEAD:Assets/StaticAssets/Scenes/Test.unity
-  - m_RefCount: 38
-    m_Data: {fileID: 11400000, guid: b3d94b71e712ceb47af2a78d2cab8848, type: 2}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
-  - m_RefCount: 9
-    m_Data: {fileID: 11400000, guid: 018747a285edd5c4a88352a89c7fab4c, type: 2}
-  m_TileSpriteArray:
-  - m_RefCount: 38
-    m_Data: {fileID: 21300118, guid: 505127720616d63439412829db7f126d, type: 3}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
-  - m_RefCount: 9
-    m_Data: {fileID: 21300100, guid: 3c0f03732619eae4a90940c1cb825f2a, type: 3}
-=======
   - m_RefCount: 47
     m_Data: {fileID: 11400000, guid: b3d94b71e712ceb47af2a78d2cab8848, type: 2}
   - m_RefCount: 0
@@ -943,7 +859,6 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
->>>>>>> 1e6bebcea0b2871409dc5b0af33b5a3ebb815dc8:Assets/StaticAssets/Scenes/Level_0.unity
   m_TileMatrixArray:
   - m_RefCount: 47
     m_Data:
@@ -969,11 +884,7 @@ Tilemap:
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Origin: {x: -6, y: -2, z: 0}
-<<<<<<< HEAD:Assets/StaticAssets/Scenes/Test.unity
-  m_Size: {x: 14, y: 7, z: 1}
-=======
   m_Size: {x: 14, y: 8, z: 1}
->>>>>>> 1e6bebcea0b2871409dc5b0af33b5a3ebb815dc8:Assets/StaticAssets/Scenes/Level_0.unity
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
@@ -2609,13 +2520,8 @@ Tilemap:
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-<<<<<<< HEAD:Assets/StaticAssets/Scenes/Test.unity
-  m_Origin: {x: -9, y: -3, z: 0}
-  m_Size: {x: 17, y: 8, z: 1}
-=======
   m_Origin: {x: -7, y: -3, z: 0}
   m_Size: {x: 15, y: 8, z: 1}
->>>>>>> 1e6bebcea0b2871409dc5b0af33b5a3ebb815dc8:Assets/StaticAssets/Scenes/Level_0.unity
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
