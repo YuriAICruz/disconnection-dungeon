@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using GameManagement;
+using Graphene.Grid;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -28,10 +29,16 @@ namespace Graphene.DisconnectionDungeon
             {
                 if (_instance == null)
                 {
-                    _instance = new GameObject("DDManager", typeof(DDManager)).GetComponent<DDManager>();
+                    _instance = new GameObject("DDManager", new System.Type[]
+                        {
+                            typeof(DDManager),
+                            typeof(GridManager)
+                        }
+                    ).GetComponent<DDManager>();
+                    
                     var tmp = Instantiate(Resources.Load<GameObject>("EssentialCanvas"));
                     var tmpB = Instantiate(Resources.Load<GameObject>("EventSystem"));
-                    
+
                     DontDestroyOnLoad(_instance.gameObject);
                     DontDestroyOnLoad(tmp);
                     DontDestroyOnLoad(tmpB);
@@ -100,9 +107,9 @@ namespace Graphene.DisconnectionDungeon
         public void StartGame()
         {
             ResetCollectables();
-            
+
             OnLevelStart();
-            
+
             SceneManager.LoadScene("Level_" + _selectedLevel);
         }
 
@@ -130,12 +137,12 @@ namespace Graphene.DisconnectionDungeon
         {
             return _progress.LevelScores[_selectedLevel];
         }
-        
+
         public bool IsCollected(int index)
         {
             if (index >= _collected.Length)
                 return false;
-            
+
             return _collected[index];
         }
 
@@ -143,7 +150,7 @@ namespace Graphene.DisconnectionDungeon
         {
             if (index >= _collected.Length)
                 return;
-            
+
             _collected[index] = true;
         }
 

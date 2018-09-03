@@ -66,8 +66,6 @@ namespace Graphene.DisconnectionDungeon.Collectable
         private void OnTrigger(RaycastHit2D hit)
         {
             var intreactible = hit.transform.GetComponent<IInteractible>();
-            
-            Debug.Log(intreactible);
 
             if (intreactible != null)
             {

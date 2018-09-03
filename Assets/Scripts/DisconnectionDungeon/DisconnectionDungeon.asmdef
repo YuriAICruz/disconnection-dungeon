@@ -5,7 +5,8 @@
         "Physics",
         "Utils",
         "GameManagement",
-        "UiGenerics"
+        "UiGenerics",
+        "Graphene.Grid"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [],

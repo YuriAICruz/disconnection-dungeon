@@ -54,8 +54,6 @@ namespace Graphene.DisconnectionDungeon
         {
             var mask = _layerMask & ~(1 << LayerMask.NameToLayer("Boxes"));
             var hit = Physics2D.Raycast(position, dir, 1, mask);
-            
-            Debug.Log(hit.collider);
 
             if (hit.collider == null || !hit.collider.isTrigger) return;
 
