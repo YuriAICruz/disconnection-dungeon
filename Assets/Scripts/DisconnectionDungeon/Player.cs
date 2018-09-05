@@ -11,7 +11,7 @@ namespace Graphene.DisconnectionDungeon
     public class Player : Actor
     {
         private DDManager _manager;
-
+        
         public CharacterPhysics Physics;
 
         private SpriteRenderer _renderer;
