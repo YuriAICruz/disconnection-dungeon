@@ -6,7 +6,7 @@ namespace Graphene.DisconnectionDungeon.Presentation.Pages.GameInterface
 {
     public class InteractHint : CanvasGroupView
     {
-        private Player _player;
+        private PlayerLegacy _player;
 
         private bool _isShown;
 
@@ -25,7 +25,7 @@ namespace Graphene.DisconnectionDungeon.Presentation.Pages.GameInterface
         private void FindPlayer()
         {
             if(_player == null)
-                _player = FindObjectOfType<Player>();
+                _player = FindObjectOfType<PlayerLegacy>();
         }
 
         private void Update()

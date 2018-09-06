@@ -13,7 +13,7 @@ namespace Graphene.DisconnectionDungeon.Collectable
         
         private bool _moving;
 
-        public CharacterPhysics Physics;
+        public CharacterPhysicsLegacy Physics;
 
         private void Awake()
         {
@@ -26,7 +26,7 @@ namespace Graphene.DisconnectionDungeon.Collectable
 
         public void Collect(Actor actor)
         {
-            var player = (Player) actor;
+            var player = (PlayerLegacy) actor;
 
             if (player == null) return;
 

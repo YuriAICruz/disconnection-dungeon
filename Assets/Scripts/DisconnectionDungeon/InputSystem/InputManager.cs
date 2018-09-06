@@ -9,7 +9,7 @@ namespace Graphene.DisconnectionDungeon.InputSystem
     public class InputManager
     {
         private Coroutine _update;
-        public event Action Interact, Pause;
+        public event Action Interact, Pause, Attack;
         public event Action<Vector2> Direction; 
         
         public InputManager()
