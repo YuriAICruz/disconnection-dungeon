@@ -11,18 +11,21 @@ namespace Graphene.Netowrking.Socketio
         
         private void Awake()
         {
-            var socket = Io.Create("127.0.0.1", 5000, 5000, SocketHandlerType.Udp);
+            var socket = Io.Create("127.0.0.1", 5000, 5000, SocketHandlerType.Tcp);
+            socket.Emit("connect");
             socket.On("connect", Connect);
             socket.On("disconnect", Disconnect);
         }
 
         private void Connect()
         {
+            Debug.Log("Connected");
             OnConnect?.Invoke();
         }
 
         void Disconnect()
         {
+            Debug.Log("Disconnected");
             OnDisconnect?.Invoke();
         }
     }
