@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/StaticAssets/Scenes/Level_1.unity
     guid: 60cd7a9a9d75c4943826baea620ad013
+  - enabled: 1
+    path: Assets/StaticAssets/Scenes/Limbo.unity
+    guid: cfea55ec94221f64e8de105490d73ad0
   m_configObjects: {}

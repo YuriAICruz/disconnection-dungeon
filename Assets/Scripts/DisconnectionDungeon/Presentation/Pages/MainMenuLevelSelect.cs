@@ -17,6 +17,7 @@ namespace Graphene.DisconnectionDungeon.Presentation.Pages
             _mainMenu.OnLevelSelection += Show;
             _mainMenu.OnMainMenu += Hide;
             _mainMenu.OnOptions += Hide;
+            _mainMenu.OnOnline += Hide;
         }
     }
 }

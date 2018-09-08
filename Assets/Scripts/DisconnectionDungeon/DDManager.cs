@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using GameManagement;
 using Graphene.Grid;
+using Networking;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -15,6 +16,8 @@ namespace Graphene.DisconnectionDungeon
 
     public class DDManager : GameManager
     {
+        private NetworkManagerWrapper _networkManager;
+        
         private int _selectedLevel = 0;
         private LevelProgress _progress;
 
@@ -51,6 +54,18 @@ namespace Graphene.DisconnectionDungeon
         private void Awake()
         {
             Load();
+        }
+
+        private void Start()
+        {
+            _networkManager = FindObjectOfType<NetworkManagerWrapper>();
+
+            _networkManager.OnClientStarted += LoadOnlineLimbo;
+        }
+
+        private void LoadOnlineLimbo()
+        {
+            SceneManager.LoadScene("Limbo");
         }
 
         private void Load()

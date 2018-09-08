@@ -5,7 +5,7 @@ namespace Graphene.DisconnectionDungeon.Presentation.Pages
 {
     public class MainMenu : CanvasGroupView
     {
-        public event Action OnMainMenu, OnOptions, OnLevelSelection;
+        public event Action OnMainMenu, OnOptions, OnLevelSelection, OnOnline;
         
         private void Setup()
         {
@@ -28,6 +28,12 @@ namespace Graphene.DisconnectionDungeon.Presentation.Pages
         public void OpenOptions()
         {
             if (OnOptions != null) OnOptions();
+            Hide();
+        }
+
+        public void OpenOnline()
+        {
+            if (OnOnline != null) OnOnline();
             Hide();
         }
     }

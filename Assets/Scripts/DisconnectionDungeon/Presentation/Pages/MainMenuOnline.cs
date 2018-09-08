@@ -2,7 +2,7 @@
 
 namespace Graphene.DisconnectionDungeon.Presentation.Pages
 {
-    public class MainMenuOptions : CanvasGroupView
+    public class MainMenuOnline : CanvasGroupView
     {
         private MainMenu _mainMenu;
         private void Setup()
@@ -16,8 +16,18 @@ namespace Graphene.DisconnectionDungeon.Presentation.Pages
 
             _mainMenu.OnLevelSelection += Hide;
             _mainMenu.OnMainMenu += Hide;
-            _mainMenu.OnOptions += Show;
-            _mainMenu.OnOnline += Hide;
+            _mainMenu.OnOptions += Hide;
+            _mainMenu.OnOnline += ShowMe;
+        }
+
+        private void ShowMe()
+        {
+            var grp = transform.GetComponentsInChildren<CanvasGroupView>();
+            foreach (var groupView in grp)
+            {
+                groupView.Hide();
+            }
+            Show();
         }
     }
 }

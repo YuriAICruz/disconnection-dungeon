@@ -6,7 +6,8 @@
         "Utils",
         "GameManagement",
         "UiGenerics",
-        "Graphene.Grid"
+        "Graphene.Grid",
+        "Networking"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [],

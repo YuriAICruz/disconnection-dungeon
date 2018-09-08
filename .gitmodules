@@ -13,3 +13,6 @@
 [submodule "Packages/Grid"]
 	path = Packages/Grid
 	url = git@github.com:YuriAICruz/Unity-Grid.git
+[submodule "Packages/Networking"]
+	path = Packages/Networking
+	url = git@github.com:YuriAICruz/Unity-Networking.git
