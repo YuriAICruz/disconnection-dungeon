@@ -124,6 +124,7 @@ GameObject:
   - component: {fileID: 1530170266}
   - component: {fileID: 1530170265}
   - component: {fileID: 1530170268}
+  - component: {fileID: 1530170269}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -200,6 +201,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d48b2aa70f694c2591b99b42813d839a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serverUrl: http://localhost:5000
+--- !u!114 &1530170269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1530170264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 165d07e5fcd400648959292cc82ca14b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1836211281

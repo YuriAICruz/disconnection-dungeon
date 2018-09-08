@@ -1,8 +1,0 @@
-{
-    "name": "Graphene.Networking.Socketio",
-    "references": [],
-    "optionalUnityReferences": [],
-    "includePlatforms": [],
-    "excludePlatforms": [],
-    "allowUnsafeCode": false
-}

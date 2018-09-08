@@ -1,7 +1,4 @@
-﻿using Boo.Lang.Environments;
-using Graphene.Acting;
-using Graphene.Acting.Collectables;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Graphene.DisconnectionDungeon.Collectable
 {
