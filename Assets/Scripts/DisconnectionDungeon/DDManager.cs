@@ -16,7 +16,7 @@ namespace Graphene.DisconnectionDungeon
 
     public class DDManager : GameManager
     {
-        private NetworkManagerWrapper _networkManager;
+        private static NetworkManagerWrapper _networkManager;
         
         private int _selectedLevel = 0;
         private LevelProgress _progress;
@@ -45,6 +45,10 @@ namespace Graphene.DisconnectionDungeon
                     DontDestroyOnLoad(_instance.gameObject);
                     DontDestroyOnLoad(tmp);
                     DontDestroyOnLoad(tmpB);
+
+                    _networkManager = FindObjectOfType<NetworkManagerWrapper>();
+                    if(_networkManager == null)
+                        Instantiate(Resources.Load<GameObject>("DevPlayer"));
                 }
 
                 return _instance;
@@ -58,8 +62,11 @@ namespace Graphene.DisconnectionDungeon
 
         private void Start()
         {
-            _networkManager = FindObjectOfType<NetworkManagerWrapper>();
+            if(_networkManager == null)
+                _networkManager = FindObjectOfType<NetworkManagerWrapper>();
 
+            if(_networkManager == null) return;
+            
             _networkManager.OnClientStarted += LoadOnlineLimbo;
         }
 

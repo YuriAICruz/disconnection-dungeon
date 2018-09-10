@@ -21,8 +21,7 @@ namespace Graphene.DisconnectionDungeon
 
         private void Awake()
         {
-            
-            _physics = new CharacterPhysics(GetComponent<Rigidbody>(), GetComponent<CapsuleCollider>());
+            _physics = new CharacterPhysics(GetComponent<Rigidbody>(), GetComponent<CapsuleCollider>(), Camera.main.transform);
             
             _animation = new AnimationManager(GetComponent<Animator>());
         }
@@ -46,13 +45,23 @@ namespace Graphene.DisconnectionDungeon
             _input.Direction += Move;
             _input.Interact += Interact;
             _input.Attack += Attack;
+            _input.Jump += Jump;
         }
 
         private void OnDisable()
         {
+            if(_input == null)
+                return;
+            
             _input.Direction -= Move;
             _input.Interact -= Interact;
             _input.Attack -= Attack;
+            _input.Jump -= Jump;
+        }
+
+        private void Jump()
+        {
+            _physics.Jump(Speed);
         }
 
         private void Attack()
