@@ -16,3 +16,6 @@
 [submodule "Packages/Networking"]
 	path = Packages/Networking
 	url = git@github.com:YuriAICruz/Unity-Networking.git
+[submodule "Packages/JsonNet"]
+	path = Packages/JsonNet
+	url = git@gitlab.com:yuriaicruz/jsonNet.git
