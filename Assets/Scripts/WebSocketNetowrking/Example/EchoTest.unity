@@ -144,7 +144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2e9007f977864b1e8be2f2d814c4cf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  url: ws://127.0.0.1
+  url: ws://127.0.0.1:8000/echo
 --- !u!81 &906014685
 AudioListener:
   m_ObjectHideFlags: 0

@@ -27,7 +27,7 @@ namespace Graphene.WebSocketsNetworking.Example
 					Debug.LogError("Error: " + w.error);
 					break;
 				}
-				yield return 0;
+				yield return new WaitForSeconds(1);
 			}
 			w.Close();
 		}

@@ -7,6 +7,8 @@ using System.Text;
 using System.Collections;
 using UnityEngine;
 using System.Runtime.InteropServices;
+using WebSocketSharp;
+using ErrorEventArgs = WebSocketSharp.ErrorEventArgs;
 
 namespace Graphene.WebSocketsNetworking
 {
@@ -110,15 +112,39 @@ namespace Graphene.WebSocketsNetworking
         public IEnumerator Connect()
         {
             m_Socket = new WebSocketSharp.WebSocket(mUrl.ToString());
-            m_Socket.OnMessage += (sender, e) => m_Messages.Enqueue(e.RawData);
-            m_Socket.OnOpen += (sender, e) => m_IsConnected = true;
-            m_Socket.OnError += (sender, e) => m_Error = e.Message;
+            m_Socket.OnMessage += OnMessage;
+	        m_Socket.OnOpen += OnOpen;
+	        m_Socket.OnError += OnError;
+	        m_Socket.OnClose += OnClose;
             m_Socket.ConnectAsync();
             while (!m_IsConnected && m_Error == null)
                 yield return 0;
         }
 
-        public void Send(byte[] buffer)
+	    private void OnClose(object sender, CloseEventArgs e)
+	    {
+		    // Debug.Log("OnClose " + e.Code + ": " + e.Reason);
+	    }
+
+	    private void OnError(object sender, ErrorEventArgs e)
+	    {
+		    // Debug.LogError("OnError");
+		    m_Error = e.Message;
+	    }
+
+	    private void OnOpen(object sender, EventArgs e)
+	    {
+		    // Debug.Log("OnOpen");
+		    m_IsConnected = true;
+	    }
+
+	    private void OnMessage(object sender, MessageEventArgs e)
+	    {
+		    // Debug.Log("OnMessage");
+		    m_Messages.Enqueue(e.RawData);
+	    }
+
+	    public void Send(byte[] buffer)
         {
             m_Socket.Send(buffer);
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.IO;
+using System.Threading;
 using Newtonsoft.Json;
 using UnityEngine;
 
@@ -17,6 +18,7 @@ namespace Graphene.WebSocketsNetworking
         [SerializeField] private string _url = "ws://127.0.0.1";
         private WebSocket _socket;
         private Guid _uid;
+        private Thread _listenThread;
 
         void Start()
         {
@@ -29,14 +31,21 @@ namespace Graphene.WebSocketsNetworking
             StartCoroutine(ConnectToSocket());
         }
 
+        private void OnDestroy()
+        {
+            _listenThread.Abort();
+        }
+
         IEnumerator ConnectToSocket()
         {
             yield return StartCoroutine(_socket.Connect());
             
             _uid = Guid.NewGuid();
             Send((uint)MessageId.Handshake, "NoName");
-            
-            StartCoroutine(Listen());
+
+            _listenThread = new Thread(Listen);
+            _listenThread.Start();
+            // yield return StartCoroutine(Listen());
         }
 
         public void Send(uint id, string message)
@@ -59,7 +68,7 @@ namespace Graphene.WebSocketsNetworking
             yield return 0;
         }
 
-        IEnumerator Listen()
+        void Listen()
         {
             while (true)
             {
@@ -73,8 +82,14 @@ namespace Graphene.WebSocketsNetworking
                     Debug.LogError("Error: " + _socket.error);
                     break;
                 }
-                yield return new WaitForChangedResult();
             }
+            
+            Close();
+        }
+
+        void Close()
+        {
+            _socket.Close();
         }
     }
 }
