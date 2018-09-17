@@ -414,6 +414,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 824b02577b5c4a49b9a980b9da5e08bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Instancer:
+    Prefabs:
+    - {fileID: 1916740180118826, guid: 3ba189e3707c98746a8b703ed693f6ec, type: 2}
   _url: ws://127.0.0.1:8000/gameServer
 --- !u!1 &921214632
 GameObject:

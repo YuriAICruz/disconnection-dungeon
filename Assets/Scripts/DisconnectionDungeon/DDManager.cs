@@ -41,14 +41,15 @@ namespace Graphene.DisconnectionDungeon
                     
                     var tmp = Instantiate(Resources.Load<GameObject>("EssentialCanvas"));
                     var tmpB = Instantiate(Resources.Load<GameObject>("EventSystem"));
+                    var tmpC = Instantiate(Resources.Load<GameObject>("NetworkManager"));
 
                     DontDestroyOnLoad(_instance.gameObject);
                     DontDestroyOnLoad(tmp);
                     DontDestroyOnLoad(tmpB);
 
-                    _networkManager = FindObjectOfType<NetworkManagerWrapper>();
-                    if(_networkManager == null)
-                        Instantiate(Resources.Load<GameObject>("DevPlayer"));
+//                    _networkManager = FindObjectOfType<NetworkManagerWrapper>();
+//                    if(_networkManager == null)
+//                        Instantiate(Resources.Load<GameObject>("DevPlayer"));
                 }
 
                 return _instance;

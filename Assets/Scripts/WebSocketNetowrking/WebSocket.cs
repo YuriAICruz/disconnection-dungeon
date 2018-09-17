@@ -7,8 +7,11 @@ using System.Text;
 using System.Collections;
 using UnityEngine;
 using System.Runtime.InteropServices;
+#if UNITY_WEBGL && !UNITY_EDITOR
+#else
 using WebSocketSharp;
 using ErrorEventArgs = WebSocketSharp.ErrorEventArgs;
+#endif
 
 namespace Graphene.WebSocketsNetworking
 {
