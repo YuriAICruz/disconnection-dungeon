@@ -6,17 +6,38 @@ using Object = UnityEngine.Object;
 
 namespace Graphene.WebSocketsNetworking
 {
+    public class ObjectData
+    {
+        public int index;
+        public uint id;
+        public Guid owner;
+    }
+    
     [Serializable]
     public class Instancer
     {
         private Guid _uid;
         public List<GameObject> Prefabs;
         
-        private List<WebSocketsBehaviour> _behaviours = new List<WebSocketsBehaviour>(); 
+        private List<WebSocketsBehaviour> _behaviours = new List<WebSocketsBehaviour>();
+        private int _behavioursCount = 0;
 
         public void SetUid(Guid uid)
         {
             _uid = uid;
+        }
+
+        public void BulkInstantiate(Message data)
+        {
+            var oData = JsonConvert.DeserializeObject<List<ObjectData>>(data.message);
+            
+            Debug.Log(oData.Count);
+
+            foreach (var objectData in oData)
+            {
+                if(objectData.owner == _uid) continue;
+                Instantiate(objectData);
+            }
         }
 
         public void Instantiate(Message data)
@@ -24,16 +45,16 @@ namespace Graphene.WebSocketsNetworking
             if(data.uid == _uid.ToString())
                 return;
 
-            var index = JsonConvert.DeserializeObject<int>(data.message);
+            var oData = JsonConvert.DeserializeObject<ObjectData>(data.message);
             
-            Instantiate(index);
+            Instantiate(oData);
         }
 
-        public void Instantiate(int index, bool local = false)
+        public void Instantiate(ObjectData oData, bool local = false)
         {
-            if(index >= Prefabs.Count) return;
+            if(oData.index >= Prefabs.Count) return;
 
-            var obj = Object.Instantiate(Prefabs[index]);
+            var obj = Object.Instantiate(Prefabs[oData.index]);
             var bhv = obj.GetComponent<WebSocketsBehaviour>();
             if (bhv == null)
             {
@@ -41,13 +62,12 @@ namespace Graphene.WebSocketsNetworking
                 Object.Destroy(obj);
                 return;
             }
+            
             bhv.SetLocal(local);
+            bhv.SetId(oData.id);
+            
             _behaviours.Add(bhv);
-        }
-
-        public uint GetBehavioursCount()
-        {
-            return (uint) _behaviours.Count;
+            _behavioursCount++;
         }
     }
 }

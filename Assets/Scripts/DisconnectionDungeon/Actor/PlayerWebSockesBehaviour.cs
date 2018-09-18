@@ -19,6 +19,7 @@ namespace Graphene.DisconnectionDungeon
 
         internal void SendPositionUpdated(Vector3 position)
         {
+            _lastPos = transform.position;
             Send((uint) NetworkManager.MessageId.Vector3, position);
         }
 
@@ -26,12 +27,15 @@ namespace Graphene.DisconnectionDungeon
         {
             if (isLocalPlayer) return;
 
+            Debug.Log("Update");
             _lastPos = position;
             transform.position = _lastPos;
         }
 
         void Update()
         {
+            if((_lastPos - transform.position).magnitude < 0.1f ) return;
+            
             SendPositionUpdated(transform.position);
         }
     }

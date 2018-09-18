@@ -30,7 +30,7 @@ namespace Graphene.WebSocketsNetworking
 
         internal void Dispatch(Message msg)
         {
-            if(msg.uid == _uid.ToString()) return;
+            if(!string.IsNullOrEmpty(msg.uid) && msg.uid == _uid.ToString()) return;
             
             if(_messagesToDispatch.ContainsKey(msg.id))
                 _messagesToDispatch[msg.id].Invoke(msg);
@@ -116,7 +116,7 @@ namespace Graphene.WebSocketsNetworking
         {
             _dispatchFloat.Add(new DispatchResponse<float>()
             {
-                id = (uint) NetworkManager.MessageId.Vector3,
+                id = (uint) NetworkManager.MessageId.Float,
                 objectId = id,
                 action = action
             });
@@ -126,7 +126,7 @@ namespace Graphene.WebSocketsNetworking
         {
             _dispatchInt.Add(new DispatchResponse<int>()
             {
-                id = (uint) NetworkManager.MessageId.Vector3,
+                id = (uint) NetworkManager.MessageId.Int,
                 objectId = id,
                 action = action
             });
@@ -136,7 +136,7 @@ namespace Graphene.WebSocketsNetworking
         {
             _dispatchBool.Add(new DispatchResponse<bool>()
             {
-                id = (uint) NetworkManager.MessageId.Vector3,
+                id = (uint) NetworkManager.MessageId.Boolean,
                 objectId = id,
                 action = action
             });

@@ -2,9 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
+using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace Graphene.WebSocketsNetworking
 {
@@ -14,6 +18,7 @@ namespace Graphene.WebSocketsNetworking
         {
             Default = 0,
             Connect = 1,
+            BulkInstantiate = 48,
             Instantiate = 49,
             Vector3 = 50,
             Vector2 = 51,
@@ -27,11 +32,12 @@ namespace Graphene.WebSocketsNetworking
         public Instancer Instancer;
 
         [SerializeField] private string _url = "ws://127.0.0.1";
+        [SerializeField] private string _apiUrl = "http://127.0.0.1";
         private WebSocket _socket;
         private Guid _uid;
-        private Thread _listenThread;
 
         Queue<Action> _mainThreadStack = new Queue<Action>();
+        private HttpCom _http;
 
         void Start()
         {
@@ -46,7 +52,6 @@ namespace Graphene.WebSocketsNetworking
 
         private void OnDestroy()
         {
-            _listenThread.Abort();
         }
 
         IEnumerator ConnectToSocket()
@@ -59,13 +64,15 @@ namespace Graphene.WebSocketsNetworking
             Dispatcher = new MessageDispatcher(_uid);
             Instancer.SetUid(_uid);
 
+            _http = new HttpCom(_apiUrl);
+
             Dispatcher.AddListener((uint) MessageId.Instantiate, Instancer.Instantiate);
+            Dispatcher.AddListener((uint) MessageId.BulkInstantiate, Instancer.BulkInstantiate);
 
             CreatePlayer();
 
-            _listenThread = new Thread(Listen);
-            _listenThread.Start();
             StartCoroutine(MainThreadDispatcher());
+            yield return StartCoroutine(Listen());
         }
 
         public void Send(uint id, string message, uint oId = 0)
@@ -90,28 +97,72 @@ namespace Graphene.WebSocketsNetworking
 
         public void CreatePlayer()
         {
-            Send((uint) MessageId.Instantiate, JsonConvert.SerializeObject(0));
-            Instancer.Instantiate(0, true);
-        }    
+            StartCoroutine(_http.Get<int>("nextId", (id) =>
+            {
+                var objd = new ObjectData() {index = 0, id = (uint) id};
+
+                Send((uint) MessageId.Instantiate, JsonConvert.SerializeObject(objd));
+                Instancer.Instantiate(objd, true);
+            }));
+        }
+
+        [Obsolete] // WebGl doesnot suport
+        public async Task<T> Get<T>(string url)
+        {
+            Debug.Log("url: " + url);
+            var uri = new Uri(url);
+            var content = new MemoryStream();
+            var webReq = (HttpWebRequest) WebRequest.Create(url);
+            webReq.Method = "GET";
+            var json = "";
+
+            using (WebResponse response = await webReq.GetResponseAsync())
+            {
+                using (Stream responseStream = response.GetResponseStream())
+                {
+                    await responseStream.CopyToAsync(content);
+
+                    content.Position = 0;
+
+                    using (StreamReader reader = new StreamReader(content))
+                    {
+                        json = await reader.ReadToEndAsync();
+
+                        try
+                        {
+                            return JsonConvert.DeserializeObject<T>(json);
+                        }
+                        catch (Exception e)
+                        {
+                            Debug.LogError(e);
+                            return default(T);
+                        }
+                    }
+                }
+            }
+        }
 
         IEnumerator MainThreadDispatcher()
         {
             while (true)
             {
                 if (_mainThreadStack.Count > 0)
-                    _mainThreadStack.Dequeue()();
+                    for (int i = _mainThreadStack.Count - 1; i >= 0; i--)
+                        _mainThreadStack.Dequeue()();
 
-                yield return new WaitForChangedResult();
+                yield return null;
             }
         }
 
-        void Listen()
+        IEnumerator Listen()
         {
             while (true)
             {
                 var reply = _socket.RecvString();
+                
                 if (reply != null)
                 {
+                    Debug.Log(reply);
                     try
                     {
                         var msg = JsonConvert.DeserializeObject<Message>(reply);
@@ -120,7 +171,6 @@ namespace Graphene.WebSocketsNetworking
                     catch (Exception e)
                     {
                         Debug.LogError(reply + "\n\n" + e);
-                        throw;
                     }
                 }
                 if (_socket.error != null)
@@ -128,6 +178,8 @@ namespace Graphene.WebSocketsNetworking
                     Debug.LogError("Error: " + _socket.error);
                     break;
                 }
+
+                yield return null;
             }
 
             Close();
@@ -136,11 +188,6 @@ namespace Graphene.WebSocketsNetworking
         void Close()
         {
             _socket.Close();
-        }
-
-        public uint GetBehaviourId()
-        {
-            return Instancer.GetBehavioursCount()+1;
         }
     }
 }

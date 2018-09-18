@@ -19,7 +19,6 @@ namespace Graphene.WebSocketsNetworking
         void Start()
         {
             _manager = FindObjectOfType<NetworkManager>();
-            Id = _manager.GetBehaviourId();
             _dispacher = _manager.Dispatcher;
             
             OnStart();
@@ -56,16 +55,16 @@ namespace Graphene.WebSocketsNetworking
             _manager.Send(id, JsonConvert.SerializeObject(obj), Id);
         }
 
-        protected virtual void OnPlayerUpdate(string message)
-        {
-            
-        }
-
         public void SetLocal(bool local)
         {
             isLocalPlayer = local;
             isClient = true;
             isServer = false;
+        }
+
+        public void SetId(uint oId)
+        {
+            Id = oId;
         }
     }
 }

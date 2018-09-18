@@ -55,3 +55,4 @@ MonoBehaviour:
     Prefabs:
     - {fileID: 1916740180118826, guid: 3ba189e3707c98746a8b703ed693f6ec, type: 2}
   _url: ws://127.0.0.1:8000/gameServer
+  _apiUrl: http://127.0.0.1:8000
