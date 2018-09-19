@@ -25,7 +25,7 @@ namespace Graphene.DisconnectionDungeon
         {
             RaycastHit hit;
 
-            if (UnityEngine.Physics.Raycast(Collider.transform.position, Vector3.down, out hit, 1.1f))
+            if (UnityEngine.Physics.Raycast(Collider.transform.position, Vector3.down, out hit, 0.1f))
             {
                 if (_debug)
                     Debug.DrawRay(Collider.transform.position, Vector3.down * 1.1f, Color.green);
@@ -41,6 +41,8 @@ namespace Graphene.DisconnectionDungeon
         {
             CheckSurround();
             CheckGround();
+
+            dir = Vector2.ClampMagnitude(dir, 1);
 
             var wdir = _camera.TransformDirection(new Vector3(dir.x, 0, dir.y));
 
@@ -73,7 +75,7 @@ namespace Graphene.DisconnectionDungeon
 
         public float Speed()
         {
-            return _velocity.magnitude;
+            return new Vector3(_velocity.x, 0, _velocity.z).magnitude;
         }
 
         public void Jump(float speed)

@@ -27,11 +27,19 @@ namespace Graphene.WebSocketsNetworking
             _uid = uid;
         }
 
+        public void BulkRemoveInstances(Message data)
+        {
+            var oData = JsonConvert.DeserializeObject<List<ObjectData>>(data.message);
+
+            foreach (var objectData in oData)
+            {
+                Destroy(objectData);
+            }
+        }
+
         public void BulkInstantiate(Message data)
         {
             var oData = JsonConvert.DeserializeObject<List<ObjectData>>(data.message);
-            
-            Debug.Log(oData.Count);
 
             foreach (var objectData in oData)
             {
@@ -48,6 +56,11 @@ namespace Graphene.WebSocketsNetworking
             var oData = JsonConvert.DeserializeObject<ObjectData>(data.message);
             
             Instantiate(oData);
+        }
+
+        private void Destroy(ObjectData oData)
+        {
+            _behaviours.RemoveAll(x => x.Id == oData.id);
         }
 
         public void Instantiate(ObjectData oData, bool local = false)

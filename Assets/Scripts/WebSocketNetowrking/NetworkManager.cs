@@ -18,6 +18,7 @@ namespace Graphene.WebSocketsNetworking
         {
             Default = 0,
             Connect = 1,
+            BulkRemoveInstances = 47,
             BulkInstantiate = 48,
             Instantiate = 49,
             Vector3 = 50,
@@ -68,6 +69,7 @@ namespace Graphene.WebSocketsNetworking
 
             Dispatcher.AddListener((uint) MessageId.Instantiate, Instancer.Instantiate);
             Dispatcher.AddListener((uint) MessageId.BulkInstantiate, Instancer.BulkInstantiate);
+            Dispatcher.AddListener((uint) MessageId.BulkRemoveInstances, Instancer.BulkRemoveInstances);
 
             CreatePlayer();
 
@@ -162,7 +164,7 @@ namespace Graphene.WebSocketsNetworking
                 
                 if (reply != null)
                 {
-                    Debug.Log(reply);
+                    // Debug.Log(reply);
                     try
                     {
                         var msg = JsonConvert.DeserializeObject<Message>(reply);

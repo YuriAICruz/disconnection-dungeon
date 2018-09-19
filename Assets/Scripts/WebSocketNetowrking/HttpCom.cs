@@ -30,7 +30,6 @@ namespace Graphene.WebSocketsNetworking
                 else
                 {
                     var json = www.downloadHandler.text;
-                    Debug.Log(json);
                     
                     try
                     {

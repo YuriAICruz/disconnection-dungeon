@@ -22,6 +22,7 @@ namespace Graphene.DisconnectionDungeon.InputSystem
             if (Input.GetButtonDown("Fire1"))
             {
                 Interact?.Invoke();
+                Attack?.Invoke();
             }
 
             if (Input.GetButtonDown("Pause"))
