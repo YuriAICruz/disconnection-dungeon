@@ -2,39 +2,22 @@
 
 namespace Graphene.DisconnectionDungeon
 {
-    public class CharacterPhysics
+    public class CharacterPhysics : BasicPhysics
     {
-        public CapsuleCollider Collider;
+        public CapsuleCollider _collider;
         private Transform _camera;
-        public Rigidbody Rigidbody;
 
         private Vector3 _velocity;
         private float _gravity = 9.8f;
 
-        private bool _grounded, _debug = true;
         private float _surroundRadius = 3;
 
         public CharacterPhysics(Rigidbody rigidbody, CapsuleCollider collider, Transform camera)
         {
-            Collider = collider;
+            _collider = collider;
             _camera = camera;
             Rigidbody = rigidbody;
-        }
-
-        void CheckGround()
-        {
-            RaycastHit hit;
-
-            if (UnityEngine.Physics.Raycast(Collider.transform.position, Vector3.down, out hit, 0.1f))
-            {
-                if (_debug)
-                    Debug.DrawRay(Collider.transform.position, Vector3.down * 1.1f, Color.green);
-                
-                _grounded = true;
-                return;
-            }
-
-            _grounded = false;
+            SetCollider(collider, rigidbody);
         }
 
         public void Move(Vector2 dir, float speed)
@@ -65,11 +48,11 @@ namespace Graphene.DisconnectionDungeon
 
         private void CheckSurround()
         {
-            var hits = UnityEngine.Physics.SphereCastAll(Collider.transform.position, _surroundRadius, Vector3.down, _surroundRadius);
+            var hits = UnityEngine.Physics.SphereCastAll(_collider.transform.position, _surroundRadius, Vector3.down, _surroundRadius);
 
             foreach (var hit in hits)
             {
-                Debug.DrawLine(Collider.transform.position, hit.collider.transform.position, Color.magenta);
+                Debug.DrawLine(_collider.transform.position, hit.collider.transform.position, Color.magenta);
             }
         }
 

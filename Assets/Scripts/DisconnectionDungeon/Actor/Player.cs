@@ -1,5 +1,7 @@
 ﻿using Graphene.Acting;
+using Graphene.Acting.Collectables;
 using Graphene.DisconnectionDungeon.InputSystem;
+using Graphene.InputManager;
 using UnityEngine;
 
 namespace Graphene.DisconnectionDungeon
@@ -15,13 +17,16 @@ namespace Graphene.DisconnectionDungeon
 
         private CharacterPhysics _physics;
 
-        private InputManager _input;
+        [SerializeField]
+        private DisconnectionDungeonInputManager _input;
 
         private AnimationManager _animation;
 
         public float Speed;
 
         bool _canInteract = false;
+        private IInteractible _currentIntreactible;
+        private bool _canClear;
 
         private void Awake()
         {
@@ -36,7 +41,7 @@ namespace Graphene.DisconnectionDungeon
 
             if (_actorController.isLocalPlayer)
             {
-                _input = new InputManager();
+                _input.Init();
                 OnEnable();
             }
 
@@ -98,6 +103,41 @@ namespace Graphene.DisconnectionDungeon
             if (dir.magnitude <= 0) return;
 
             transform.rotation = Quaternion.LookRotation(new Vector3(dir.x, 0, dir.y));
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            var col = other.transform.GetComponent<ICollectable>();
+            if (col != null)
+            {
+                col.Collect(this);
+            }
+
+            var intreactible = other.transform.GetComponent<IInteractible>();
+
+            if (intreactible != null)
+            {
+                _currentIntreactible = intreactible;
+                _canClear = false;
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            
+        }
+
+        private void OnCollisionEnter(Collision other)
+        {
+            var col = other.transform.GetComponent<ICollectable>();
+            if (col != null)
+            {
+                col.Collect(this);
+            }
+        }
+
+        private void OnCollisionExit(Collision other)
+        {
         }
     }
 }

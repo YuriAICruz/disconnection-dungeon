@@ -16,7 +16,7 @@ namespace Graphene.DisconnectionDungeon
 
         private SpriteRenderer _renderer;
 
-        private InputManager _input;
+        private DisconnectionDungeonInputManager _input;
         private bool _moving;
         private IInteractible _currentIntreactible;
 
@@ -26,7 +26,7 @@ namespace Graphene.DisconnectionDungeon
         {
             Life.OnDie += Die;
 
-            _input = new InputManager();
+            _input = new DisconnectionDungeonInputManager();
             _input.Direction += Move;
             _input.Interact += Interact;
             _input.Pause += Pause;

@@ -19,3 +19,12 @@
 [submodule "Packages/JsonNet"]
 	path = Packages/JsonNet
 	url = git@gitlab.com:yuriaicruz/jsonNet.git
+[submodule "Packages/InputManager"]
+	path = Packages/InputManager
+	url = git@github.com:YuriAICruz/Unity-InputManager.git
+[submodule "Packages/TopDownCity"]
+	path = Packages/TopDownCity
+	url = git@gitlab.com:yuriaicruz/unity-topdowncity.git
+[submodule "Packages/RPGCharacterPackAnimations"]
+	path = Packages/RPGCharacterPackAnimations
+	url = git@gitlab.com:yuriaicruz/unity-rpgcharacteranimationpack.git

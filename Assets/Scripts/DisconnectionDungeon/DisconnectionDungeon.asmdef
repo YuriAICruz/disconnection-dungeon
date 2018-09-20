@@ -8,7 +8,9 @@
         "UiGenerics",
         "Graphene.Grid",
         "Networking",
-        "WebSocketsNetworking"
+        "WebSocketsNetworking",
+        "Graphene.InputManager",
+        "Graphene.InputManagerEditor"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [],
