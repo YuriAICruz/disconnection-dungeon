@@ -12,13 +12,26 @@ namespace Graphene.DisconnectionDungeon.InputSystem
         private Coroutine _update;
         public event Action Interact, Pause, Attack, Jump, Dodge;
 
-        protected override void CreateComboData()
+        protected override void ExecuteCombo(int id)
         {
-            base.CreateComboData();
-            _comboAssembly = new Dictionary<ComboChecker, Action>()
+            switch (id)
             {
-                //TODO
-            };
+                case 1:
+                    Attack?.Invoke();
+                    break;
+                case 2:
+                    Interact?.Invoke();
+                    break;
+                case 3:
+                    Pause?.Invoke();
+                    break;
+                case 4:
+                    Jump?.Invoke();
+                    break;
+                case 5:
+                    Dodge?.Invoke();
+                    break;
+            }
         }
     }
 }

@@ -11,4 +11,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19a373cf00dc6ad46af7ede24d48d004, type: 3}
   m_Name: InputData
   m_EditorClassIdentifier: 
-  Inputs: []
+  Inputs:
+  - hint: Attack
+    Combo:
+    - input: 8
+      betweenMaxTime: 1.2
+      betweenMinTime: 0.2
+      down: 1
+      hold: 0
+      holdTime: 0
+    Id: 1
+  - hint: Interact
+    Combo:
+    - input: 2
+      betweenMaxTime: 1.2
+      betweenMinTime: 0.2
+      down: 1
+      hold: 0
+      holdTime: 0
+    Id: 2
+  - hint: Pause
+    Combo:
+    - input: 512
+      betweenMaxTime: 1.2
+      betweenMinTime: 0.2
+      down: 0
+      hold: 0
+      holdTime: 0
+    Id: 3
+  - hint: Jump
+    Combo:
+    - input: 4
+      betweenMaxTime: 1.2
+      betweenMinTime: 0.2
+      down: 0
+      hold: 0
+      holdTime: 0
+    Id: 4
+  - hint: Dodge
+    Combo:
+    - input: 16
+      betweenMaxTime: 1.2
+      betweenMinTime: 0.2
+      down: 0
+      hold: 0
+      holdTime: 0
+    Id: 5
