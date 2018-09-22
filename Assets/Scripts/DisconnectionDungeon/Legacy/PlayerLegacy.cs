@@ -27,7 +27,7 @@ namespace Graphene.DisconnectionDungeon
             Life.OnDie += Die;
 
             _input = new DisconnectionDungeonInputManager();
-            _input.Direction += Move;
+            _input.Left_Axis += Move;
             _input.Interact += Interact;
             _input.Pause += Pause;
 

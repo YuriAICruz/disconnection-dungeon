@@ -55,7 +55,7 @@ namespace Graphene.DisconnectionDungeon
             if (_input == null)
                 return;
 
-            _input.Direction += Move;
+            _input.Left_Axis += Move;
             _input.Interact += Interact;
             _input.Attack += Attack;
             _input.Jump += Jump;
@@ -66,7 +66,7 @@ namespace Graphene.DisconnectionDungeon
             if (_input == null)
                 return;
 
-            _input.Direction -= Move;
+            _input.Left_Axis -= Move;
             _input.Interact -= Interact;
             _input.Attack -= Attack;
             _input.Jump -= Jump;
