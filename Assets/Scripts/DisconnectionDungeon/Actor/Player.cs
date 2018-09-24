@@ -17,8 +17,7 @@ namespace Graphene.DisconnectionDungeon
 
         private CharacterPhysics _physics;
 
-        [SerializeField]
-        private DisconnectionDungeonInputManager _input;
+        [SerializeField] private DisconnectionDungeonInputManager _input;
 
         private AnimationManager _animation;
 
@@ -59,6 +58,7 @@ namespace Graphene.DisconnectionDungeon
             _input.Left_Axis += Move;
             _input.Interact += Interact;
             _input.Attack += Attack;
+            _input.AttackSeq += AttackSeq;
             _input.Jump += Jump;
         }
 
@@ -80,8 +80,16 @@ namespace Graphene.DisconnectionDungeon
 
         private void Attack()
         {
+            Debug.LogError("Attack");
             if (_canInteract) return;
             _animation.Attack();
+        }
+
+        private void AttackSeq()
+        {
+            Debug.LogError("AttackSeq");
+            if (_canInteract) return;
+            _animation.AttackSeq();
         }
 
         private void Interact()
@@ -125,7 +133,6 @@ namespace Graphene.DisconnectionDungeon
 
         private void OnTriggerExit(Collider other)
         {
-            
         }
 
         private void OnCollisionEnter(Collision other)
@@ -139,6 +146,20 @@ namespace Graphene.DisconnectionDungeon
 
         private void OnCollisionExit(Collision other)
         {
+        }
+        
+        public void FootR()
+        {
+            
+        }
+        public void FootL()
+        {
+            
+        }
+
+        public void Hit()
+        {
+            
         }
     }
 }

@@ -12,15 +12,6 @@ MonoBehaviour:
   m_Name: InputData
   m_EditorClassIdentifier: 
   Inputs:
-  - hint: Attack
-    Combo:
-    - input: 8
-      betweenMaxTime: 1.2
-      betweenMinTime: 0.2
-      down: 1
-      hold: 0
-      holdTime: 0
-    Id: 1
   - hint: Interact
     Combo:
     - input: 2
@@ -35,7 +26,7 @@ MonoBehaviour:
     - input: 512
       betweenMaxTime: 1.2
       betweenMinTime: 0.2
-      down: 0
+      down: 1
       hold: 0
       holdTime: 0
     Id: 3
@@ -44,7 +35,7 @@ MonoBehaviour:
     - input: 4
       betweenMaxTime: 1.2
       betweenMinTime: 0.2
-      down: 0
+      down: 1
       hold: 0
       holdTime: 0
     Id: 4
@@ -57,3 +48,27 @@ MonoBehaviour:
       hold: 0
       holdTime: 0
     Id: 5
+  - hint: Attack_Seq
+    Combo:
+    - input: 8
+      betweenMaxTime: 1.2
+      betweenMinTime: 0.18961036
+      down: 1
+      hold: 0
+      holdTime: 0
+    - input: 8
+      betweenMaxTime: 1.2
+      betweenMinTime: 0.2
+      down: 1
+      hold: 0
+      holdTime: 0
+    Id: 10
+  - hint: Attack
+    Combo:
+    - input: 8
+      betweenMaxTime: 1.2
+      betweenMinTime: 0.56883115
+      down: 1
+      hold: 0
+      holdTime: 0
+    Id: 11

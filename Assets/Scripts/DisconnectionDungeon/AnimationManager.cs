@@ -20,6 +20,11 @@ namespace Graphene.DisconnectionDungeon
         {
             _animator.SetTrigger("Attack");   
         }
+        
+        public void AttackSeq()
+        {
+            _animator.SetTrigger("Attack_Seq"); 
+        }
 
         public void SetSpeed(float speed)
         {

@@ -310,22 +310,6 @@ InputManager:
     axis: -1
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Button_A
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: mouse 0
-    altNegativeButton: 
-    altPositiveButton: 
-    gravity: 1000
-    dead: 0.001
-    sensitivity: 1000
-    snap: 0
-    invert: 0
-    type: 0
-    axis: -1
-    joyNum: 0
-  - serializedVersion: 3
     m_Name: Button_B
     descriptiveName: 
     descriptiveNegativeName: 
@@ -363,6 +347,22 @@ InputManager:
     descriptiveNegativeName: 
     negativeButton: 
     positiveButton: left ctrl
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 1000
+    dead: 0.001
+    sensitivity: 1000
+    snap: 0
+    invert: 0
+    type: 0
+    axis: -1
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: Button_X
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: mouse 0
     altNegativeButton: 
     altPositiveButton: 
     gravity: 1000
