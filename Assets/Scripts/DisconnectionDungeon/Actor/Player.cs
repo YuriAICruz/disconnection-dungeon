@@ -31,6 +31,7 @@ namespace Graphene.DisconnectionDungeon
         private void Awake()
         {
             _physics = new CharacterPhysics(GetComponent<Rigidbody>(), GetComponent<CapsuleCollider>(), Camera.main.transform);
+            _physics.OnEdge += Jump;
 
             _animation = new AnimationManager(GetComponent<Animator>());
         }
