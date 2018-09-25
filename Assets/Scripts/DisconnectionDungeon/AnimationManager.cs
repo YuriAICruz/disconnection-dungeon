@@ -30,5 +30,15 @@ namespace Graphene.DisconnectionDungeon
         {
             _animator.SetFloat("Speed", speed);   
         }
+
+        public void Jump(bool state)
+        {
+            _animator.SetBool("Jumping", state);
+        }
+
+        public void SetGroundState(bool state)
+        {
+            _animator.SetBool("Grounded", state);   
+        }
     }
 }

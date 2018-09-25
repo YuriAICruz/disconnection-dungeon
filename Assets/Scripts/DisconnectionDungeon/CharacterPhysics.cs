@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Xml.Schema;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Graphene.DisconnectionDungeon
 {
@@ -68,7 +69,7 @@ namespace Graphene.DisconnectionDungeon
             var pos = _collider.transform.position;
             RaycastHit rayhit;
 
-            UnityEngine.Physics.Raycast(pos, -_collider.transform.up, out rayhit, 1f);
+            UnityEngine.Physics.Raycast(pos+Vector3.up, -_collider.transform.up, out rayhit, 2f);
 
             if (rayhit.collider == null) return Vector3.zero;
 
@@ -217,7 +218,7 @@ namespace Graphene.DisconnectionDungeon
         {
             if (_jumping || !_grounded) return;
 
-            _jumping = true;
+            SetJumpState(true);
             _velocity.y = speed;
         }
     }

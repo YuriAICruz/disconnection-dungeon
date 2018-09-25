@@ -30,7 +30,6 @@ namespace Graphene.DisconnectionDungeon
         private void Awake()
         {
             _physics = new CharacterPhysics(GetComponent<Rigidbody>(), GetComponent<CapsuleCollider>(), Camera.main.transform);
-            _physics.OnEdge += Jump;
 
             _animation = new AnimationManager(GetComponent<Animator>());
         }
@@ -60,6 +59,10 @@ namespace Graphene.DisconnectionDungeon
             _input.Attack += Attack;
             _input.AttackSeq += AttackSeq;
             _input.Jump += Jump;
+            
+            _physics.OnEdge += Jump;
+            _physics.JumpState += _animation.Jump;
+            _physics.GroundState += _animation.SetGroundState;
         }
 
         private void OnDisable()
@@ -80,14 +83,12 @@ namespace Graphene.DisconnectionDungeon
 
         private void Attack()
         {
-            Debug.LogError("Attack");
             if (_canInteract) return;
             _animation.Attack();
         }
 
         private void AttackSeq()
         {
-            Debug.LogError("AttackSeq");
             if (_canInteract) return;
             _animation.AttackSeq();
         }
@@ -158,6 +159,11 @@ namespace Graphene.DisconnectionDungeon
         }
 
         public void Hit()
+        {
+            
+        }
+
+        public void Land()
         {
             
         }
