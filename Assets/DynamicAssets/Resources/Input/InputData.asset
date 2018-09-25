@@ -57,7 +57,7 @@ MonoBehaviour:
       hold: 0
       holdTime: 0
     - input: 8
-      betweenMaxTime: 1.2
+      betweenMaxTime: 0.4103896
       betweenMinTime: 0.2
       down: 1
       hold: 0

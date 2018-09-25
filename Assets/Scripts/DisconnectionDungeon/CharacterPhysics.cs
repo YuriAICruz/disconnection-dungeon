@@ -17,6 +17,7 @@ namespace Graphene.DisconnectionDungeon
         private float _stepAngle;
 
         public event Action OnEdge;
+        public event Action<int> OnWallClose;
 
         public CharacterPhysics(Rigidbody rigidbody, CapsuleCollider collider, Transform camera)
         {
@@ -31,10 +32,12 @@ namespace Graphene.DisconnectionDungeon
             CheckGround();
 
             dir = Vector2.ClampMagnitude(dir, 1);
-
+            
             var wdir = _camera.TransformDirection(new Vector3(dir.x, 0, dir.y));
 
             var moveDirection = GetGroundOrient(wdir).normalized;
+
+            CheckSurround(wdir);
 
             _velocity.x = moveDirection.x * speed;
             _velocity.z = moveDirection.z * speed;
@@ -163,29 +166,29 @@ namespace Graphene.DisconnectionDungeon
 //        return B;
 //        }
 
-        private Vector3 CheckSurround(Vector2 wdir)
+        private void CheckSurround(Vector2 wdir)
         {
-            var pos = _collider.transform.position;
+            var pos = _collider.transform.position + Vector3.up;
             RaycastHit rayhit;
 
-            if (wdir.magnitude <= 0 && _standingCollider != null)
+            for (int i = 1, n = _sides.Length; i < n; i++)
             {
-                UnityEngine.Physics.Raycast(pos, _collider.transform.forward, out rayhit, 1);
+                if (!UnityEngine.Physics.Raycast(pos, _collider.transform.TransformDirection(_sides[i]), out rayhit, 2)) continue;
 
-                return CalculateBounds(rayhit, _standingCollider, pos, wdir);
+
+                if (rayhit.distance < 1f)
+                {
+                    OnWallClose?.Invoke(i);
+                    Debug.DrawLine(pos, rayhit.point, Color.red);
+                    return;
+                }
+                else
+                {
+                    Debug.DrawLine(pos, rayhit.point, Color.blue);
+                }
             }
-
-            var hits = UnityEngine.Physics.SphereCastAll(_collider.transform.position, _surroundRadius, Vector3.down, _surroundRadius);
-
-            UnityEngine.Physics.Raycast(pos, wdir, out rayhit, 1);
-
-            foreach (var hit in hits)
-            {
-                var res = CalculateBounds(rayhit, hit.collider, pos, wdir);
-                if (res.magnitude > 0)
-                    return res;
-            }
-            return Vector3.zero;
+            
+            OnWallClose?.Invoke(0);
         }
 
         private Vector3 CalculateBounds(RaycastHit rayhit, Collider collider, Vector3 pos, Vector3 wdir)

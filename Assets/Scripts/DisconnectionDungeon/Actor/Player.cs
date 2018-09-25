@@ -59,10 +59,20 @@ namespace Graphene.DisconnectionDungeon
             _input.Attack += Attack;
             _input.AttackSeq += AttackSeq;
             _input.Jump += Jump;
-            
+
             _physics.OnEdge += Jump;
+            _physics.OnWallClose += TouchWall;
             _physics.JumpState += _animation.Jump;
             _physics.GroundState += _animation.SetGroundState;
+        }
+
+        private void TouchWall(int side)
+        {
+            _animation.TouchWall(
+                new Vector2Int(
+                    side % 2 * ((side + 1) % 2 - side + 2),
+                    (side + 1) % 2 * Mathf.Min(1, side) * ((side + 1) % 2 - side + 2))
+            );
         }
 
         private void OnDisable()
@@ -148,24 +158,21 @@ namespace Graphene.DisconnectionDungeon
         private void OnCollisionExit(Collision other)
         {
         }
-        
+
         public void FootR()
         {
-            
         }
+
         public void FootL()
         {
-            
         }
 
         public void Hit()
         {
-            
         }
 
         public void Land()
         {
-            
         }
     }
 }

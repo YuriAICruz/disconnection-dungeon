@@ -15,7 +15,7 @@ namespace Graphene.DisconnectionDungeon
 
         public event Action<bool> JumpState, GroundState;
 
-        Vector3[] _sides = new Vector3[]
+        protected Vector3[] _sides = new Vector3[]
         {
             new Vector3(0, 0, 0),
             new Vector3(1, 0, 0),
@@ -52,8 +52,7 @@ namespace Graphene.DisconnectionDungeon
             }
 
             _standingCollider = null;
-
-            Debug.Log(_grounded);
+            
             SetGrounded(false);
         }
 

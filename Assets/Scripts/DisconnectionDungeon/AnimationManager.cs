@@ -40,5 +40,11 @@ namespace Graphene.DisconnectionDungeon
         {
             _animator.SetBool("Grounded", state);   
         }
+
+        public void TouchWall(Vector2Int dir)
+        {
+            _animator.SetFloat("WallX", dir.x);   
+            _animator.SetFloat("WallY", dir.y);   
+        }
     }
 }
