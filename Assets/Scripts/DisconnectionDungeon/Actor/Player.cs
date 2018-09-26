@@ -26,12 +26,15 @@ namespace Graphene.DisconnectionDungeon
         bool _canInteract = false;
         private IInteractible _currentIntreactible;
         private bool _canClear;
+        private Weapon _weapon;
 
         private void Awake()
         {
             _physics = new CharacterPhysics(GetComponent<Rigidbody>(), GetComponent<CapsuleCollider>(), Camera.main.transform);
 
             _animation = new AnimationManager(GetComponent<Animator>());
+
+            _weapon = transform.GetComponentInChildren<Weapon>();
         }
 
         private void Start()
@@ -169,6 +172,11 @@ namespace Graphene.DisconnectionDungeon
 
         public void Hit()
         {
+            _weapon.SetEnabled(true);
+        }
+        public void HitEnd()
+        {
+            _weapon.SetEnabled(false);
         }
 
         public void Land()

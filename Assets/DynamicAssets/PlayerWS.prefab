@@ -396,6 +396,7 @@ GameObject:
   - component: {fileID: 4218949653383610}
   - component: {fileID: 33834101584118462}
   - component: {fileID: 23752934993493812}
+  - component: {fileID: 114948852159132272}
   m_Layer: 0
   m_Name: SwordR
   m_TagString: Untagged
@@ -2015,6 +2016,20 @@ MonoBehaviour:
     MaxStm: 1
     RecoveryRate: 1
   Speed: 5
+--- !u!114 &114948852159132272
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1340733940619712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35342946615a441c851701ace1bf1e89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Damage: 1
+  Height: 0.44
+  Offset: {x: -0.17925762, y: -0.03307201, z: 0.15316807}
 --- !u!136 &136870361040050038
 CapsuleCollider:
   m_ObjectHideFlags: 1
