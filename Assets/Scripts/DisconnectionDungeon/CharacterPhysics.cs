@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Xml.Schema;
+using Graphene.Utils;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -223,6 +225,29 @@ namespace Graphene.DisconnectionDungeon
 
             SetJumpState(true);
             _velocity.y = speed;
+        }
+
+        public void Dodge(float duration, float speed, Action callback)
+        {
+            var dir = _velocity.normalized;
+            if (dir.magnitude == 0)
+                dir = _collider.transform.forward;
+            GlobalCoroutineManager.Instance.StartCoroutine(DodgeRoutine(dir, duration, speed, callback));
+        }
+
+        IEnumerator DodgeRoutine(Vector3 direction, float duration, float speed, Action callback)
+        {
+            var transform = Collider.transform;
+            var time = 0f;
+            while (time <= duration)
+            {
+                Rigidbody.velocity = direction * speed;
+                
+                yield return null;
+                time += Time.deltaTime;
+            }
+            
+            callback?.Invoke();
         }
     }
 }

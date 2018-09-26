@@ -46,5 +46,20 @@ namespace Graphene.DisconnectionDungeon
             _animator.SetFloat("WallX", dir.x);   
             _animator.SetFloat("WallY", dir.y);   
         }
+
+        public void ReceiveDamage()
+        {
+            _animator.SetTrigger("Damage"); 
+        }
+
+        public void Die()
+        {
+            _animator.SetTrigger("Die");
+        }
+
+        public void Dodge()
+        {
+            _animator.SetTrigger("Dodge");
+        }
     }
 }

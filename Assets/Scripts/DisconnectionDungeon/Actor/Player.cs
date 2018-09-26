@@ -1,4 +1,5 @@
-﻿using Graphene.Acting;
+﻿using System.Collections;
+using Graphene.Acting;
 using Graphene.Acting.Collectables;
 using Graphene.DisconnectionDungeon.InputSystem;
 using Graphene.InputManager;
@@ -17,11 +18,14 @@ namespace Graphene.DisconnectionDungeon
 
         private CharacterPhysics _physics;
 
-        [SerializeField] private DisconnectionDungeonInputManager _input;
+        [HideInInspector]
+        [SerializeField] 
+        private DisconnectionDungeonInputManager _input;
 
         private AnimationManager _animation;
 
         public float Speed;
+        [SerializeField] private float _dodgeDuration;
 
         bool _canInteract = false;
         private IInteractible _currentIntreactible;
@@ -35,6 +39,9 @@ namespace Graphene.DisconnectionDungeon
             _animation = new AnimationManager(GetComponent<Animator>());
 
             _weapon = transform.GetComponentInChildren<Weapon>();
+
+            Life.Reset();
+            Life.OnDie += OnDie;
         }
 
         private void Start()
@@ -62,11 +69,22 @@ namespace Graphene.DisconnectionDungeon
             _input.Attack += Attack;
             _input.AttackSeq += AttackSeq;
             _input.Jump += Jump;
+            _input.Dodge += Dodge;
 
             _physics.OnEdge += Jump;
             _physics.OnWallClose += TouchWall;
             _physics.JumpState += _animation.Jump;
             _physics.GroundState += _animation.SetGroundState;
+        }
+
+        private void Dodge()
+        {
+            _animation.Dodge();
+            _input.BlockInputs();
+            _physics.Dodge(_dodgeDuration, Speed*2, () =>
+            {
+                _input.UnblockInputs();
+            });
         }
 
         private void TouchWall(int side)
@@ -86,7 +104,13 @@ namespace Graphene.DisconnectionDungeon
             _input.Left_Axis -= Move;
             _input.Interact -= Interact;
             _input.Attack -= Attack;
+            _input.AttackSeq -= AttackSeq;
             _input.Jump -= Jump;
+
+            _physics.OnEdge -= Jump;
+            _physics.OnWallClose -= TouchWall;
+            _physics.JumpState -= _animation.Jump;
+            _physics.GroundState -= _animation.SetGroundState;
         }
 
         private void Jump()
@@ -143,6 +167,26 @@ namespace Graphene.DisconnectionDungeon
                 _currentIntreactible = intreactible;
                 _canClear = false;
             }
+        }
+
+        public override void DoDamage(int damage)
+        {
+            StartCoroutine(ReceiveDamage());
+            Life.ReceiveDamage(damage);
+            _animation.ReceiveDamage();
+        }
+
+        IEnumerator ReceiveDamage()
+        {
+            _input.BlockInputs();
+            Move(Vector2.zero);
+            yield return new WaitForSeconds(0.6f);
+            _input.UnblockInputs();
+        }
+
+        private void OnDie()
+        {
+            _animation.Die();
         }
 
         private void OnTriggerExit(Collider other)
