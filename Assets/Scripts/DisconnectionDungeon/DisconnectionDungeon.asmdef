@@ -10,7 +10,8 @@
         "Networking",
         "WebSocketsNetworking",
         "Graphene.InputManager",
-        "Graphene.InputManagerEditor"
+        "Graphene.InputManagerEditor",
+        "Graphene.BehaviourTree"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [],

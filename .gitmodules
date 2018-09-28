@@ -28,3 +28,6 @@
 [submodule "Packages/RPGCharacterPackAnimations"]
 	path = Packages/RPGCharacterPackAnimations
 	url = git@gitlab.com:yuriaicruz/unity-rpgcharacteranimationpack.git
+[submodule "Packages/Behavior-Tree"]
+	path = Packages/Behavior-Tree
+	url = https://github.com/YuriAICruz/Unity-Behaviour-Tree.git

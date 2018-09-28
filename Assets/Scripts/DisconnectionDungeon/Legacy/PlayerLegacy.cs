@@ -143,7 +143,7 @@ namespace Graphene.DisconnectionDungeon
             Life.ReceiveDamage(damage);
         }
 
-        protected override void OnCollided(RaycastHit2D hit)
+        protected void OnCollided(RaycastHit2D hit)
         {
             var col = hit.transform.GetComponent<ICollectable>();
             if (col != null)
@@ -152,7 +152,7 @@ namespace Graphene.DisconnectionDungeon
             }
         }
 
-        protected override void OnTriggered(RaycastHit2D hit)
+        protected void OnTriggered(RaycastHit2D hit)
         {
             var col = hit.transform.GetComponent<ICollectable>();
             if (col != null)

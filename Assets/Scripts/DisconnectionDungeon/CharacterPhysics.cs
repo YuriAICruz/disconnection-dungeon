@@ -29,13 +29,13 @@ namespace Graphene.DisconnectionDungeon
             SetCollider(collider, rigidbody);
         }
 
-        public void Move(Vector2 dir, float speed)
+        public void Move(Vector2 dir, float speed, bool transformDir = true)
         {
             CheckGround();
 
             dir = Vector2.ClampMagnitude(dir, 1);
             
-            var wdir = _camera.TransformDirection(new Vector3(dir.x, 0, dir.y));
+            var wdir = transformDir ? _camera.TransformDirection(new Vector3(dir.x, 0, dir.y)) : new Vector3(dir.x, 0, dir.y);
 
             var moveDirection = GetGroundOrient(wdir).normalized;
 
@@ -82,7 +82,11 @@ namespace Graphene.DisconnectionDungeon
 
             if (distance < 0.2f) OnEdge?.Invoke();
 
-            var cross = Vector3.Cross(_collider.transform.right, rayhit.normal);
+            var rot = Quaternion.AngleAxis(90, _collider.transform.up) * wdir;
+            
+            var cross = Vector3.Cross(rot, rayhit.normal);
+            
+            Debug.DrawRay(_collider.transform.position + Vector3.up, cross.normalized*2, Color.magenta);
 
             _stepAngle = Vector3.Angle(cross, Vector3.down);
 
@@ -193,27 +197,6 @@ namespace Graphene.DisconnectionDungeon
             OnWallClose?.Invoke(0);
         }
 
-        private Vector3 CalculateBounds(RaycastHit rayhit, Collider collider, Vector3 pos, Vector3 wdir)
-        {
-            if (rayhit.collider == collider)
-            {
-                Debug.DrawLine(pos, collider.transform.position, Color.blue);
-                Debug.DrawRay(rayhit.point, rayhit.normal, Color.blue);
-
-                var res = rayhit.normal + wdir.normalized;
-
-                var cross = Vector3.Cross(_collider.transform.right, res);
-
-                Debug.DrawRay(rayhit.point + rayhit.normal, cross, Color.blue);
-
-                Debug.Log(rayhit.normal + wdir.normalized);
-                return -cross;
-            }
-
-            Debug.DrawLine(pos, collider.transform.position, Color.magenta);
-            return Vector3.zero;
-        }
-
         public float Speed()
         {
             return new Vector3(_velocity.x, 0, _velocity.z).magnitude;
@@ -248,6 +231,11 @@ namespace Graphene.DisconnectionDungeon
             }
             
             callback?.Invoke();
+        }
+
+        public void EnableRagdool()
+        {
+            Rigidbody.freezeRotation = false;
         }
     }
 }
