@@ -67,12 +67,14 @@ namespace Graphene.DisconnectionDungeon
         {
             if (_canInteract) return;
             _animation.Attack();
+            _weapon.SetEnabled();
         }
 
         private void AttackSeq()
         {
             if (_canInteract) return;
             _animation.AttackSeq();
+            _weapon.SetEnabled(0.2f);
         }
 
         private void Interact()

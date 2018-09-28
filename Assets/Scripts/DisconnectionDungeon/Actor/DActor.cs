@@ -189,14 +189,8 @@ namespace Graphene.DisconnectionDungeon
 
         public void Hit()
         {
-            _weapon.SetEnabled(true);
         }
         
-        public void HitEnd()
-        {
-            _weapon.SetEnabled(false);
-        }
-
         public void Land()
         {
         }
