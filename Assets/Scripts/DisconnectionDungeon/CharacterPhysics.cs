@@ -21,6 +21,8 @@ namespace Graphene.DisconnectionDungeon
         public event Action OnEdge;
         public event Action<int> OnWallClose;
 
+        private bool _blockMovement;
+
         public CharacterPhysics(Rigidbody rigidbody, CapsuleCollider collider, Transform camera)
         {
             _collider = collider;
@@ -33,8 +35,14 @@ namespace Graphene.DisconnectionDungeon
         {
             CheckGround();
 
+            if (_blockMovement)
+            {
+                Rigidbody.velocity += Vector3.down * _gravity * Time.deltaTime;
+                return;
+            }
+
             dir = Vector2.ClampMagnitude(dir, 1);
-            
+
             var wdir = transformDir ? _camera.TransformDirection(new Vector3(dir.x, 0, dir.y)) : new Vector3(dir.x, 0, dir.y);
 
             var moveDirection = GetGroundOrient(wdir).normalized;
@@ -52,8 +60,8 @@ namespace Graphene.DisconnectionDungeon
 
             if (_grounded)
             {
-                if(!_jumping)
-                _velocity.y = moveDirection.y * speed;
+                if (!_jumping)
+                    _velocity.y = moveDirection.y * speed;
 
                 _velocity.y = Mathf.Max(_velocity.y, 0);
             }
@@ -74,7 +82,7 @@ namespace Graphene.DisconnectionDungeon
             var pos = _collider.transform.position;
             RaycastHit rayhit;
 
-            UnityEngine.Physics.Raycast(pos+Vector3.up, -_collider.transform.up, out rayhit, 2f);
+            UnityEngine.Physics.Raycast(pos + Vector3.up, -_collider.transform.up, out rayhit, 2f);
 
             if (rayhit.collider == null) return Vector3.zero;
 
@@ -83,7 +91,7 @@ namespace Graphene.DisconnectionDungeon
             if (distance < 0.2f) OnEdge?.Invoke();
 
             var rot = Quaternion.AngleAxis(90, _collider.transform.up) * wdir;
-            
+
             var cross = Vector3.Cross(rot, rayhit.normal);
 
             _stepAngle = Vector3.Angle(cross, Vector3.down);
@@ -108,7 +116,7 @@ namespace Graphene.DisconnectionDungeon
             var result = Mathf.Infinity;
             for (int i = 0, n = corners.Length; i < n; i++)
             {
-                Debug.DrawLine(corners[i], corners[(i + 1)%n], Color.magenta);
+                Debug.DrawLine(corners[i], corners[(i + 1) % n], Color.magenta);
                 var line = -corners[i] + corners[(i + 1) % n];
                 var value = Vector3.Cross(line, _collider.transform.position - corners[i]).magnitude;
 
@@ -117,7 +125,7 @@ namespace Graphene.DisconnectionDungeon
                     result = value / line.magnitude;
                 }
             }
-            
+
 //            Debug.Log(result);
             return result;
         }
@@ -191,7 +199,7 @@ namespace Graphene.DisconnectionDungeon
                     Debug.DrawLine(pos, rayhit.point, Color.blue);
                 }
             }
-            
+
             OnWallClose?.Invoke(0);
         }
 
@@ -223,17 +231,43 @@ namespace Graphene.DisconnectionDungeon
             while (time <= duration)
             {
                 Rigidbody.velocity = direction * speed;
-                
+
                 yield return null;
                 time += Time.deltaTime;
             }
-            
+
             callback?.Invoke();
         }
 
         public void EnableRagdool()
         {
             Rigidbody.freezeRotation = false;
+        }
+
+        public void Push(Vector3 dir, float force = 8, float duration = 0.15f)
+        {
+            GlobalCoroutineManager.Instance.StartCoroutine(PushRoutine(dir, force, duration));
+        }
+
+        IEnumerator PushRoutine(Vector3 dir, float force, float duration)
+        {
+            Move(Vector2.zero, 0);
+            _blockMovement = true;
+            
+            dir.y = 0;
+            
+            var time = 0f;
+            while (time <= duration)
+            {
+                Rigidbody.velocity = dir * force;
+
+                force -= Time.deltaTime * duration * force;
+
+                yield return null;
+                time += Time.deltaTime;
+            }
+            
+            _blockMovement = false;
         }
     }
 }

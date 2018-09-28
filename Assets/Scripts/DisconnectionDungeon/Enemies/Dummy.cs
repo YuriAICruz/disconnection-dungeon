@@ -79,6 +79,17 @@ namespace Graphene.DisconnectionDungeon.Enemies
             });
         }
 
+        public override void DoDamage(int damage, Vector3 from)
+        {
+            if (from != null)
+            {
+                var dir = transform.position - from;
+                _physics.Push(dir);
+            }
+            
+            base.DoDamage(damage, from);
+        }
+
         protected override void OnDie()
         {
             base.OnDie();

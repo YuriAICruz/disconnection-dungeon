@@ -86,7 +86,7 @@ namespace Graphene.DisconnectionDungeon
 
                 _lastHits.Add(dmg);
                 Instantiate(_hitParticle, hit.point, Quaternion.identity);
-                dmg.DoDamage(Damage);
+                dmg.DoDamage(Damage, transform.position);
             }
         }
     }

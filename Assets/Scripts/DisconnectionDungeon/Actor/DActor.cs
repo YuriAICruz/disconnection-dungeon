@@ -144,7 +144,7 @@ namespace Graphene.DisconnectionDungeon
             _physics.Jump(Speed);
         }
 
-        public override void DoDamage(int damage)
+        public override void DoDamage(int damage, Vector3 from)
         {
             StartCoroutine(ReceiveDamage());
             Life.ReceiveDamage(damage);

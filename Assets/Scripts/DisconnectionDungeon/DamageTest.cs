@@ -18,7 +18,7 @@ namespace Graphene.DisconnectionDungeon
             Destroy(gameObject);
         }
 
-        public void DoDamage(int damage)
+        public void DoDamage(int damage, Vector3 from)
         {
             life.ReceiveDamage(damage);
             Debug.Log(damage);

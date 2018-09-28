@@ -138,7 +138,7 @@ namespace Graphene.DisconnectionDungeon
             Debug.LogError("Die");
         }
 
-        public override void DoDamage(int damage)
+        public override void DoDamage(int damage, Vector3 from)
         {
             Life.ReceiveDamage(damage);
         }
