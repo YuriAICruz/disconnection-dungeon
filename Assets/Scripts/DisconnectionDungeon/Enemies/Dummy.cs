@@ -123,6 +123,11 @@ namespace Graphene.DisconnectionDungeon.Enemies
 
         private NodeStates Scan()
         {
+            Debug.DrawRay(transform.position + Vector3.up, transform.forward * VisionRadius, Color.magenta);
+            Debug.DrawRay(transform.position + Vector3.up, -transform.forward * VisionRadius, Color.magenta);
+            Debug.DrawRay(transform.position + Vector3.up, transform.right * VisionRadius, Color.magenta);
+            Debug.DrawRay(transform.position + Vector3.up, -transform.right * VisionRadius, Color.magenta);
+            
             if (_lastScan + 0.2f > Time.time) return HasTarget();
 
             _lastScan = Time.time;
@@ -133,8 +138,6 @@ namespace Graphene.DisconnectionDungeon.Enemies
                 var player = hit.transform.GetComponent<Player>();
 
                 if (player == null) continue;
-                
-                Debug.DrawLine(transform.position+Vector3.up, player.transform.position, Color.cyan);
 
                 _blackboard.Set((int) BlackboardIds.CurrentTarget, player.transform, _tree.id);
                 return NodeStates.Success;

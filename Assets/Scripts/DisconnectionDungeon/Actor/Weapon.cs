@@ -12,10 +12,16 @@ namespace Graphene.DisconnectionDungeon
 
         public float Height;
         public Vector3 Offset;
+        private IDamageble _owner;
 
         private void Awake()
         {
             _hitParticle = Resources.Load<GameObject>("Particle/Hit0");
+        }
+
+        public void SetOwner(IDamageble owner)
+        {
+            _owner = owner;
         }
 
         public void SetEnabled(bool enable)
@@ -33,8 +39,8 @@ namespace Graphene.DisconnectionDungeon
             {
                 var dmg = hit.transform.GetComponent<IDamageble>();
 
-                if (dmg == null) continue;
-                
+                if (dmg == null || (_owner != null && _owner == dmg)) continue;
+
                 Instantiate(_hitParticle, hit.point, Quaternion.identity);
                 dmg.DoDamage(Damage);
             }

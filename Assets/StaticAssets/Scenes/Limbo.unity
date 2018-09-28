@@ -566,8 +566,8 @@ MonoBehaviour:
     RecoveryRate: 1
   Speed: 3
   _dodgeDuration: 0.1
-  DangerHp: 2
-  VisionRadius: 2
+  DangerHp: 8
+  VisionRadius: 10
   AttackDistance: 0.5
 --- !u!95 &634777662
 Animator:

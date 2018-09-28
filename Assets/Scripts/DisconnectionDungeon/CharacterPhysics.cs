@@ -85,8 +85,6 @@ namespace Graphene.DisconnectionDungeon
             var rot = Quaternion.AngleAxis(90, _collider.transform.up) * wdir;
             
             var cross = Vector3.Cross(rot, rayhit.normal);
-            
-            Debug.DrawRay(_collider.transform.position + Vector3.up, cross.normalized*2, Color.magenta);
 
             _stepAngle = Vector3.Angle(cross, Vector3.down);
 

@@ -33,6 +33,10 @@ namespace Graphene.DisconnectionDungeon
             _animation = new AnimationManager(GetComponent<Animator>());
 
             _weapon = transform.GetComponentInChildren<Weapon>();
+            if (_weapon != null)
+            {
+                _weapon.SetOwner(this);
+            }
 
             Life.Reset();
             Life.OnDie += OnDie;
@@ -154,6 +158,7 @@ namespace Graphene.DisconnectionDungeon
 
         protected virtual void OnDie()
         {
+            Debug.Log(gameObject + "Died");
             _animation.Die();
         }
 
