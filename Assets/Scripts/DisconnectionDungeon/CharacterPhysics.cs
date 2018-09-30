@@ -19,12 +19,15 @@ namespace Graphene.DisconnectionDungeon
         private float _stepAngle;
 
         public event Action OnEdge;
+        public event Action<float> OnWallClimb;
         public event Action<int> OnWallClose;
 
         private bool _blockMovement;
+        private Coroutine _climbing;
 
-        public CharacterPhysics(Rigidbody rigidbody, CapsuleCollider collider, Transform camera)
+        public CharacterPhysics(Rigidbody rigidbody, CapsuleCollider collider, Transform camera, float radius)
         {
+            _radius = radius;
             _collider = collider;
             _camera = camera;
             Rigidbody = rigidbody;
@@ -88,16 +91,23 @@ namespace Graphene.DisconnectionDungeon
 
             var distance = CheckBounds(rayhit);
 
-            if (distance < 0.2f) OnEdge?.Invoke();
+            if (distance < 0.2f)
+            {
+                if (!UnityEngine.Physics.Raycast(
+                    pos + Vector3.up,
+                    (_collider.transform.forward - _collider.transform.up).normalized,
+                    2f
+                ))
+                {
+                    OnEdge?.Invoke();
+                }
+            }
 
             var rot = Quaternion.AngleAxis(90, _collider.transform.up) * wdir;
 
             var cross = Vector3.Cross(rot, rayhit.normal);
 
             _stepAngle = Vector3.Angle(cross, Vector3.down);
-
-//            Debug.DrawRay(rayhit.point, rayhit.normal, Color.blue);
-//            Debug.DrawRay(rayhit.point + rayhit.normal, cross, Color.blue);
 
             return cross;
         }
@@ -114,16 +124,22 @@ namespace Graphene.DisconnectionDungeon
             };
 
             var result = Mathf.Infinity;
+            var side = -1;
             for (int i = 0, n = corners.Length; i < n; i++)
             {
-                Debug.DrawLine(corners[i], corners[(i + 1) % n], Color.magenta);
                 var line = -corners[i] + corners[(i + 1) % n];
                 var value = Vector3.Cross(line, _collider.transform.position - corners[i]).magnitude;
 
-                if (value < result)
+                if (value / line.magnitude < result)
                 {
                     result = value / line.magnitude;
                 }
+            }
+
+
+            if (side >= 0)
+            {
+                Debug.DrawLine(corners[side], corners[(side + 1) % corners.Length], Color.magenta);
             }
 
 //            Debug.Log(result);
@@ -191,6 +207,10 @@ namespace Graphene.DisconnectionDungeon
                 if (rayhit.distance < 1f)
                 {
                     OnWallClose?.Invoke(i);
+
+                    if (i == 2) // forward
+                        CheckWallHeigt(rayhit);
+
                     Debug.DrawLine(pos, rayhit.point, Color.red);
                     return;
                 }
@@ -201,6 +221,49 @@ namespace Graphene.DisconnectionDungeon
             }
 
             OnWallClose?.Invoke(0);
+        }
+
+        private bool CheckWallHeigt(RaycastHit rayhit)
+        {
+            var bounds = rayhit.collider.bounds;
+            var corners = new Vector3[]
+            {
+                bounds.center + new Vector3(bounds.extents.x, bounds.extents.y, bounds.extents.z),
+                bounds.center + new Vector3(bounds.extents.x, bounds.extents.y, -bounds.extents.z),
+                bounds.center + new Vector3(-bounds.extents.x, bounds.extents.y, -bounds.extents.z),
+                bounds.center + new Vector3(-bounds.extents.x, bounds.extents.y, bounds.extents.z),
+            };
+
+            var result = Mathf.Infinity;
+            var side = -1;
+            var pos = _collider.transform.position;
+            pos.y = bounds.extents.y;
+            for (int i = 0, n = corners.Length; i < n; i++)
+            {
+                var line = -corners[i] + corners[(i + 1) % n];
+                var value = Vector3.Cross(line, _collider.transform.position - corners[i]).magnitude;
+
+                if (value / line.magnitude < result)
+                {
+                    result = value / line.magnitude;
+                    side = i;
+                }
+            }
+
+            if (side >= 0)
+            {
+                Debug.DrawLine(corners[side], corners[(side + 1) % corners.Length], Color.blue);
+                var dist = bounds.extents.y - _collider.transform.position.y;
+                
+                if (dist < 2)
+                {
+                    if(_climbing == null)
+                        OnWallClimb?.Invoke(dist);
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public float Speed()
@@ -253,9 +316,9 @@ namespace Graphene.DisconnectionDungeon
         {
             Move(Vector2.zero, 0);
             _blockMovement = true;
-            
+
             dir.y = 0;
-            
+
             var time = 0f;
             while (time <= duration)
             {
@@ -266,8 +329,58 @@ namespace Graphene.DisconnectionDungeon
                 yield return null;
                 time += Time.deltaTime;
             }
-            
+
             _blockMovement = false;
+        }
+
+        public void Climb(float height, float speed)
+        {
+            if (_climbing != null) return;
+            
+            _climbing = GlobalCoroutineManager.Instance.StartCoroutine(ClimbRoutine(height, speed));
+        }
+
+        IEnumerator ClimbRoutine(float height, float speed)
+        {
+            _blockMovement = true;
+            yield return null;
+
+            Rigidbody.velocity = Vector3.zero;
+            Rigidbody.isKinematic = true;
+            var time = 0f;
+            var pos = _collider.transform.position;
+            var tgtPos = pos + Vector3.up * height*2;// + _collider.transform.forward * _radius;
+            var dur = 0.4f;
+            Debug.Log(height);
+            while (time <= dur)
+            {
+                //Rigidbody.velocity = dir * force;
+                Rigidbody.velocity = Vector3.zero;
+                _collider.transform.position = Vector3.Lerp(pos, tgtPos, time / dur);
+
+                yield return null;
+                time += Time.deltaTime;
+            }
+            
+            pos = _collider.transform.position;
+            tgtPos = _collider.transform.position + _collider.transform.forward * 1;
+            time = 0;
+            dur /= 2;
+            while (time <= dur)
+            {
+                //Rigidbody.velocity = dir * force;
+                Rigidbody.velocity = Vector3.zero;
+                _collider.transform.position = Vector3.Lerp(pos, tgtPos, time / dur);
+
+                yield return null;
+                time += Time.deltaTime;
+            }
+
+            yield return null;
+            Rigidbody.isKinematic = false;
+            _blockMovement = false;
+
+            _climbing = null;
         }
     }
 }

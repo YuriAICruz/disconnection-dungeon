@@ -61,5 +61,11 @@ namespace Graphene.DisconnectionDungeon
         {
             _animator.SetTrigger("Dodge");
         }
+
+        public void Climb(float height)
+        {
+            _animator.SetTrigger("Climb");
+            _animator.SetFloat("ClimbHeight", height);
+        }
     }
 }

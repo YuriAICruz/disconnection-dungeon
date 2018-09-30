@@ -28,7 +28,8 @@ namespace Graphene.DisconnectionDungeon
 
         private void Awake()
         {
-            _physics = new CharacterPhysics(GetComponent<Rigidbody>(), GetComponent<CapsuleCollider>(), Camera.main.transform);
+            var cap = GetComponent<CapsuleCollider>();
+            _physics = new CharacterPhysics(GetComponent<Rigidbody>(), cap, Camera.main.transform, cap.radius);
 
             _animation = new AnimationManager(GetComponent<Animator>());
 
@@ -90,10 +91,11 @@ namespace Graphene.DisconnectionDungeon
             _physics.OnWallClose += TouchWall;
             _physics.JumpState += _animation.Jump;
             _physics.GroundState += _animation.SetGroundState;
+            _physics.OnWallClimb += WallClimb;
 
             OnEnabled();
         }
-
+        
         private void OnDisable()
         {
             if (_actorController == null || !_actorController.isLocalPlayer) return;
@@ -161,6 +163,13 @@ namespace Graphene.DisconnectionDungeon
             Debug.Log(gameObject + "Died");
             _animation.Die();
         }
+
+        protected virtual void WallClimb(float height)
+        {
+            _physics.Climb(height, Speed);
+            _animation.Climb(height);
+        }
+
 
         private void OnTriggerExit(Collider other)
         {

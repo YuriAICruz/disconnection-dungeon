@@ -11,6 +11,8 @@ namespace Graphene.DisconnectionDungeon
         protected bool _grounded;
         protected bool _jumping;
 
+        protected float _radius;
+
         protected Collider _standingCollider;
 
         public event Action<bool> JumpState, GroundState;
@@ -30,7 +32,7 @@ namespace Graphene.DisconnectionDungeon
 
             for (int i = 0; i < _sides.Length; i++)
             {
-                var pos = Collider.transform.position + _sides[i] + Vector3.up;
+                var pos = Collider.transform.position + (_sides[i] * _radius)  + Vector3.up;
 
                 if (!UnityEngine.Physics.Raycast(pos, Vector3.down, out hit, 1.1f)) continue;
 
