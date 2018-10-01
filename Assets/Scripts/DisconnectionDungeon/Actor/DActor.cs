@@ -112,8 +112,12 @@ namespace Graphene.DisconnectionDungeon
         protected void Look(Vector2 dir)
         {
             if (dir.magnitude <= 0) return;
+            
+            var wdir = _camera.transform.TransformDirection(new Vector3(dir.x, 0, dir.y));
+            wdir.y = 0;
+            wdir.Normalize();
 
-            transform.rotation = Quaternion.LookRotation(new Vector3(dir.x, 0, dir.y));
+            transform.rotation = Quaternion.LookRotation(wdir);
         }
 
         private void OnTriggerEnter(Collider other)

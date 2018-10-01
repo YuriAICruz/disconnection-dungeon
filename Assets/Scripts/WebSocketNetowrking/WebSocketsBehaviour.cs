@@ -8,6 +8,8 @@ namespace Graphene.WebSocketsNetworking
     {
         [HideInInspector]
         public uint Id;
+
+        public int SpawnId;
         
         public bool isServer { get; private set; }
         public bool isClient { get; private set; }

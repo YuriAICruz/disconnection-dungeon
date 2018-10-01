@@ -9,7 +9,6 @@ namespace Graphene.DisconnectionDungeon
 {
     public class Player : DActor
     {
-
         [HideInInspector]
         [SerializeField] 
         private DisconnectionDungeonInputManager _input;

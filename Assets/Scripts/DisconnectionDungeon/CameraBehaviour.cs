@@ -1,4 +1,6 @@
-﻿using UnityEditorInternal;
+﻿using System.Collections.Generic;
+using System.Linq;
+using UnityEditorInternal;
 using UnityEngine;
 
 namespace Graphene.DisconnectionDungeon
@@ -12,9 +14,17 @@ namespace Graphene.DisconnectionDungeon
         private Vector3 _position;
         public Vector3 Offset;
 
+        private List<CameraBehaviorVolume> _volumes;
+        private CameraBehaviorVolume _currentVolume;
+
         private void Awake()
         {
             _manager = DDManager.Instance;
+        }
+
+        private void Start()
+        {
+            _volumes = FindObjectsOfType<CameraBehaviorVolume>().ToList();
         }
 
         public void SetTarget(Transform target)
@@ -25,7 +35,16 @@ namespace Graphene.DisconnectionDungeon
 
         private void Update()
         {
+            UpdateVolume();
             FollowTarget();
+        }
+
+        private void UpdateVolume()
+        {
+            if(_currentVolume == null) return;
+            
+            Offset = Vector3.Lerp(Offset, _currentVolume.CamraOffset, Time.deltaTime);
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(_currentVolume.CamraEulerAngles), Time.deltaTime);
         }
 
         private void FollowTarget()
@@ -43,7 +62,28 @@ namespace Graphene.DisconnectionDungeon
                 _position += dir * Speed * Time.deltaTime;
             }
 
-            transform.position = Offset + _position;
+            var pos = Offset + _position;
+            CheckVolumes(_target.position);
+            transform.position = pos;
+        }
+
+        private void CheckVolumes(Vector3 pos)
+        {
+            var res = _volumes.Find(x=>FilterVolume(x,pos));
+            
+            if(res == null) return;
+
+            _currentVolume = res;
+        }
+
+        private bool FilterVolume(CameraBehaviorVolume volume, Vector3 pos)
+        {
+            var distance = volume.transform.position - pos;
+
+            if (distance.magnitude <= volume.Radius)
+                return true;
+
+            return false;
         }
     }
 }

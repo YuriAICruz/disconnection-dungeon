@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -67,6 +68,8 @@ namespace Graphene.WebSocketsNetworking
         {
             if(oData.index >= Prefabs.Count) return;
 
+
+            var spawnPoints = Object.FindObjectsOfType<SpawnPoint>().ToList();
             var obj = Object.Instantiate(Prefabs[oData.index]);
             var bhv = obj.GetComponent<WebSocketsBehaviour>();
             if (bhv == null)
@@ -78,6 +81,15 @@ namespace Graphene.WebSocketsNetworking
             
             bhv.SetLocal(local);
             bhv.SetId(oData.id);
+
+            var point = spawnPoints.Find(x => x.SpawnId == bhv.SpawnId);
+            Debug.Log(point);
+            Debug.Log(spawnPoints.Count);
+
+            if (point != null)
+            {
+                bhv.transform.position = point.transform.position;
+            }
             
             _behaviours.Add(bhv);
             _behavioursCount++;
