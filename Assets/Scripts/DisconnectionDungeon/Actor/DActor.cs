@@ -104,6 +104,7 @@ namespace Graphene.DisconnectionDungeon
             _physics.OnWallClose -= TouchWall;
             _physics.JumpState -= _animation.Jump;
             _physics.GroundState -= _animation.SetGroundState;
+            _physics.OnWallClimb -= WallClimb;
             
             OnDisabled();
         }
