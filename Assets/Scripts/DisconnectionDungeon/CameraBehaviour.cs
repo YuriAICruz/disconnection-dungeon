@@ -35,8 +35,11 @@ namespace Graphene.DisconnectionDungeon
 
         private void Update()
         {
+            if (_target == null) return;
+            
             UpdateVolume();
             FollowTarget();
+            CheckOcclusion();
         }
 
         private void UpdateVolume()
@@ -49,8 +52,6 @@ namespace Graphene.DisconnectionDungeon
 
         private void FollowTarget()
         {
-            if (_target == null) return;
-
             var dir = (_target.position - _position);
             
             if (dir.magnitude > 10)
@@ -84,6 +85,18 @@ namespace Graphene.DisconnectionDungeon
                 return true;
 
             return false;
+        }
+
+        private void CheckOcclusion()
+        {
+            RaycastHit hit;
+            var dir = transform.position - _target.position;
+            if (!UnityEngine.Physics.Raycast(_target.position, dir, out hit, dir.magnitude)) return;
+            
+            Debug.DrawRay(_target.position, dir.normalized * hit.distance, Color.red);
+
+            var rdr = hit.transform.GetComponent<Renderer>();
+            rdr.material.SetFloat("TimeReset", 0);
         }
     }
 }
