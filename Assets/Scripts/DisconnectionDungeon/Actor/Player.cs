@@ -37,7 +37,10 @@ namespace Graphene.DisconnectionDungeon
             _input.AttackSeq += AttackSeq;
             _input.Jump += Jump;
             _input.Dodge += Dodge;
+            _input.LockOn += LockOn;
+            _input.LockOff += LockOff;
         }
+
         protected override void OnDisabled()
         {
             base.OnDisabled();
@@ -50,6 +53,9 @@ namespace Graphene.DisconnectionDungeon
             _input.Attack -= Attack;
             _input.AttackSeq -= AttackSeq;
             _input.Jump -= Jump;
+            _input.Dodge -= Dodge;
+            _input.LockOn -= LockOn;
+            _input.LockOff -= LockOff;
         }
 
         private void Dodge()

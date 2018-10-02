@@ -24,6 +24,8 @@ namespace Graphene.DisconnectionDungeon
 
         private bool _blockMovement;
         private Coroutine _climbing;
+        private LayerMask _movementMask;
+        private Transform _target;
 
         public CharacterPhysics(Rigidbody rigidbody, CapsuleCollider collider, Transform camera, float radius)
         {
@@ -32,6 +34,8 @@ namespace Graphene.DisconnectionDungeon
             _camera = camera;
             Rigidbody = rigidbody;
             SetCollider(collider, rigidbody);
+
+            _movementMask |= 1 << LayerMask.NameToLayer("Level");
         }
 
         public void Move(Vector2 dir, float speed, bool transformDir = true)
@@ -85,7 +89,7 @@ namespace Graphene.DisconnectionDungeon
             var pos = _collider.transform.position;
             RaycastHit rayhit;
 
-            UnityEngine.Physics.Raycast(pos + Vector3.up, -_collider.transform.up, out rayhit, 2f);
+            UnityEngine.Physics.Raycast(pos + Vector3.up, -_collider.transform.up, out rayhit, 2f, _movementMask);
 
             if (rayhit.collider == null) return Vector3.zero;
 
@@ -96,7 +100,8 @@ namespace Graphene.DisconnectionDungeon
                 if (!UnityEngine.Physics.Raycast(
                     pos + Vector3.up,
                     (_collider.transform.forward - _collider.transform.up).normalized,
-                    2f
+                    2f,
+                    _movementMask
                 ))
                 {
                     OnEdge?.Invoke();
@@ -201,7 +206,7 @@ namespace Graphene.DisconnectionDungeon
 
             for (int i = 1, n = _sides.Length; i < n; i++)
             {
-                if (!UnityEngine.Physics.Raycast(pos, _collider.transform.TransformDirection(_sides[i]), out rayhit, 2)) continue;
+                if (!UnityEngine.Physics.Raycast(pos, _collider.transform.TransformDirection(_sides[i]), out rayhit, 2, _movementMask)) continue;
 
 
                 if (rayhit.distance < 1f)
@@ -381,6 +386,11 @@ namespace Graphene.DisconnectionDungeon
             _blockMovement = false;
 
             _climbing = null;
+        }
+
+        public void SetTarget(Transform target)
+        {
+            _target = target;
         }
     }
 }

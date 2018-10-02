@@ -68,10 +68,11 @@ namespace Graphene.WebSocketsNetworking
         {
             if(oData.index >= Prefabs.Count) return;
 
-
             var spawnPoints = Object.FindObjectsOfType<SpawnPoint>().ToList();
             var obj = Object.Instantiate(Prefabs[oData.index]);
+            
             var bhv = obj.GetComponent<WebSocketsBehaviour>();
+            
             if (bhv == null)
             {
                 Debug.LogError("No WebSocketsBehaviour in object deleting");
@@ -83,8 +84,6 @@ namespace Graphene.WebSocketsNetworking
             bhv.SetId(oData.id);
 
             var point = spawnPoints.Find(x => x.SpawnId == bhv.SpawnId);
-            Debug.Log(point);
-            Debug.Log(spawnPoints.Count);
 
             if (point != null)
             {

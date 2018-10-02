@@ -10,17 +10,17 @@ namespace Graphene.DisconnectionDungeon.InputSystem
     public class DisconnectionDungeonInputManager : InputManager.InputSystem
     {
         private Coroutine _update;
-        public event Action Interact, Pause, Attack, AttackSeq, Jump, Dodge;
+        public event Action Interact, Pause, Attack, AttackSeq, Jump, Dodge, LockOn, LockOff;
 
         protected override void ExecuteCombo(int id)
         {
             switch (id)
             {
-                case 11:
-                    Attack?.Invoke();
+                case 1:
+                    LockOn?.Invoke();
                     break;
-                case 10:
-                    AttackSeq?.Invoke();
+                case 0:
+                    LockOff?.Invoke();
                     break;
                 case 2:
                     Interact?.Invoke();
@@ -33,6 +33,12 @@ namespace Graphene.DisconnectionDungeon.InputSystem
                     break;
                 case 5:
                     Dodge?.Invoke();
+                    break;
+                case 11:
+                    Attack?.Invoke();
+                    break;
+                case 10:
+                    AttackSeq?.Invoke();
                     break;
             }
         }

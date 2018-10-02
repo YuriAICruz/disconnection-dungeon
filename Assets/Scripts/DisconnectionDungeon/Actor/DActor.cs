@@ -18,6 +18,8 @@ namespace Graphene.DisconnectionDungeon
 
         protected AnimationManager _animation;
 
+        private Transform _target;
+
         public float Speed;
         [SerializeField] protected float _dodgeDuration;
 
@@ -44,10 +46,9 @@ namespace Graphene.DisconnectionDungeon
 
             OnAwake();
         }
-        
+
         protected virtual void OnAwake()
         {
-            
         }
 
         private void Start()
@@ -60,7 +61,7 @@ namespace Graphene.DisconnectionDungeon
             }
 
             _camera = FindObjectOfType<CameraBehaviour>();
-            
+
             if (_actorController.isLocalPlayer)
                 _camera.SetTarget(this.transform);
 
@@ -69,24 +70,21 @@ namespace Graphene.DisconnectionDungeon
 
         protected virtual void OnStart()
         {
-            
         }
 
         protected virtual void OnEnabled()
         {
-            
         }
-        
+
         protected virtual void OnDisabled()
         {
-            
         }
 
 
         private void OnEnable()
         {
             if (_actorController == null || !_actorController.isLocalPlayer) return;
-            
+
             _physics.OnEdge += Jump;
             _physics.OnWallClose += TouchWall;
             _physics.JumpState += _animation.Jump;
@@ -95,24 +93,33 @@ namespace Graphene.DisconnectionDungeon
 
             OnEnabled();
         }
-        
+
         private void OnDisable()
         {
             if (_actorController == null || !_actorController.isLocalPlayer) return;
-            
+
             _physics.OnEdge -= Jump;
             _physics.OnWallClose -= TouchWall;
             _physics.JumpState -= _animation.Jump;
             _physics.GroundState -= _animation.SetGroundState;
             _physics.OnWallClimb -= WallClimb;
-            
+
             OnDisabled();
         }
 
         protected void Look(Vector2 dir)
         {
             if (dir.magnitude <= 0) return;
-            
+
+            if (_target != null)
+            {
+                Debug.DrawLine(transform.position, _target.position, Color.red);
+                var tdir = _target.transform.position - transform.position;
+                tdir.y = 0;
+                transform.rotation = Quaternion.LookRotation(tdir);
+                return;
+            }
+
             var wdir = _camera.transform.TransformDirection(new Vector3(dir.x, 0, dir.y));
             wdir.y = 0;
             wdir.Normalize();
@@ -145,7 +152,7 @@ namespace Graphene.DisconnectionDungeon
                     (side + 1) % 2 * Mathf.Min(1, side) * ((side + 1) % 2 - side + 2))
             );
         }
-        
+
         protected virtual void Jump()
         {
             _physics.Jump(Speed);
@@ -173,6 +180,39 @@ namespace Graphene.DisconnectionDungeon
         {
             _physics.Climb(height, Speed);
             _animation.Climb(height);
+        }
+
+
+        protected virtual void LockOff()
+        {
+            _target = null;
+            _physics.SetTarget(_target);
+        }
+
+        protected virtual void LockOn()
+        {
+            var hits = UnityEngine.Physics.SphereCastAll(transform.position, 5, transform.forward, 5);
+
+            foreach (var hit in hits)
+            {
+                var actor = hit.collider.GetComponent<Actor>();
+                Debug.Log(actor);
+                if (actor == null)
+                {
+                    var dmg = hit.collider.GetComponent<IDamageble>();
+
+                    Debug.Log(dmg);
+                    if (dmg == null) continue;
+
+                    _target = hit.collider.transform;
+                    _physics.SetTarget(_target);
+                    return;
+                }
+                if (actor == this) continue;
+
+                _target = actor.transform;
+                _physics.SetTarget(_target);
+            }
         }
 
 
@@ -204,7 +244,7 @@ namespace Graphene.DisconnectionDungeon
         public void Hit()
         {
         }
-        
+
         public void Land()
         {
         }
