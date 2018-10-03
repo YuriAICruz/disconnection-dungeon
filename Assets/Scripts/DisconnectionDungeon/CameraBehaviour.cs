@@ -18,7 +18,6 @@ namespace Graphene.DisconnectionDungeon
         private List<CameraBehaviorVolume> _volumes;
         private CameraBehaviorVolume _currentVolume;
         private int _levelMask;
-        private List<Renderer> _renderers = new List<Renderer>();
         private float _fade;
         private Coroutine _routine;
 
@@ -101,8 +100,6 @@ namespace Graphene.DisconnectionDungeon
 
             if (hits.Length == 0)
             {
-                if(_routine == null)
-                    _routine = StartCoroutine(ResetRenderers());
                 _fade = 1;
                 return;
             }
@@ -119,29 +116,7 @@ namespace Graphene.DisconnectionDungeon
                 rdr.material.SetFloat("_Opaque", 0);
 
                 _fade = Mathf.Max(0, _fade - Time.deltaTime);
-
-                _renderers.Add(rdr);
             }
-        }
-
-        private IEnumerator ResetRenderers()
-        {
-            var t = 0f;
-            while (t<1)
-            {
-                foreach (var renderer in _renderers)
-                {
-                    renderer.material.SetFloat("_Opaque", 0);
-                }
-                yield return null;
-                t += Time.deltaTime;
-            }
-            foreach (var renderer in _renderers)
-            {
-                renderer.material.SetFloat("_Opaque", 1);
-            }
-            _renderers = new List<Renderer>();
-            _routine = null;
         }
     }
 }
