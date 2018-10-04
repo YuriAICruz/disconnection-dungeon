@@ -20,6 +20,7 @@ namespace Graphene.DisconnectionDungeon
         private int _levelMask;
         private float _fade;
         private Coroutine _routine;
+        private float _maxDistance = 200; 
 
         private void Awake()
         {
@@ -42,24 +43,58 @@ namespace Graphene.DisconnectionDungeon
         {
             if (_target == null) return;
 
+            CheckVolumes(_target.position);
             UpdateVolume();
-            FollowTarget();
             CheckOcclusion();
         }
 
         private void UpdateVolume()
         {
-            if (_currentVolume == null) return;
+            if (_currentVolume == null)
+            {
+                FollowTarget();
+                return;
+            }
 
-            Offset = Vector3.Lerp(Offset, _currentVolume.CamraOffset, Time.deltaTime);
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(_currentVolume.CamraEulerAngles), Time.deltaTime);
+            if (_currentVolume.Fixed)
+            {
+                transform.rotation = Quaternion.LookRotation(_target.position-transform.position);
+                MoveToVolume();
+                Offset = Vector3.Lerp(Offset, Vector3.zero, Time.deltaTime);
+            }
+            else
+            {
+                Offset = Vector3.Lerp(Offset, _currentVolume.CamraOffset, Time.deltaTime);
+                
+                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(_currentVolume.CamraEulerAngles), Time.deltaTime);
+                
+                FollowTarget();
+            }
         }
 
+        void MoveToVolume()
+        {
+            var point = _currentVolume.transform.TransformPoint(_currentVolume.CamraOffset);
+            var dir = (point - _position);
+
+            if (dir.magnitude > _maxDistance)
+            {
+                _position = point;
+            }
+            else
+            {
+                _position += dir * Speed * Time.deltaTime;
+            }
+
+            var pos = Offset + _position;
+            transform.position = pos;
+        }
+        
         private void FollowTarget()
         {
             var dir = (_target.position - _position);
 
-            if (dir.magnitude > 10)
+            if (dir.magnitude > _maxDistance)
             {
                 _position = _target.position;
             }
@@ -69,7 +104,6 @@ namespace Graphene.DisconnectionDungeon
             }
 
             var pos = Offset + _position;
-            CheckVolumes(_target.position);
             transform.position = pos;
         }
 

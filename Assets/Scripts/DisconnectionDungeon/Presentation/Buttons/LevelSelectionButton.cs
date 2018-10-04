@@ -1,5 +1,5 @@
 ﻿using Graphene.DisconnectionDungeon.Presentation.Pages;
-using UiGenerics;
+using Graphene.UiGenerics;
 
 namespace Graphene.DisconnectionDungeon.Presentation.Buttons
 {

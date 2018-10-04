@@ -3,12 +3,12 @@
     "references": [
         "Graphene.Acting",
         "Physics",
-        "Utils",
-        "GameManagement",
-        "UiGenerics",
+        "Graphene.Utils",
+        "Graphene.GameManagement",
+        "Graphene.UiGenerics",
         "Graphene.Grid",
-        "Networking",
-        "WebSocketsNetworking",
+        "Graphene.Networking",
+        "Graphene.WebSocketsNetworking",
         "Graphene.InputManager",
         "Graphene.InputManagerEditor",
         "Graphene.BehaviourTree"

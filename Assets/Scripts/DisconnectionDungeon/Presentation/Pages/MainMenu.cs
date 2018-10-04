@@ -1,5 +1,5 @@
 ﻿using System;
-using UiGenerics;
+using Graphene.UiGenerics;
 
 namespace Graphene.DisconnectionDungeon.Presentation.Pages
 {

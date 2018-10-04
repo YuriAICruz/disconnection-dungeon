@@ -1,7 +1,7 @@
 {
-    "name": "WebSocketsNetworking",
+    "name": "Graphene.WebSocketsNetworking",
     "references": [
-        "UiGenerics"
+        "Graphene.UiGenerics"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [],

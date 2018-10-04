@@ -8,5 +8,7 @@ namespace Graphene.DisconnectionDungeon
 
         public Vector3 CamraOffset;
         public Vector3 CamraEulerAngles;
+
+        public bool Fixed;
     }
 }

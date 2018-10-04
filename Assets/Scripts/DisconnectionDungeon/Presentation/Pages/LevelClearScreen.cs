@@ -1,4 +1,4 @@
-﻿using UiGenerics;
+﻿using Graphene.UiGenerics;
 using UnityEngine;
 
 namespace Graphene.DisconnectionDungeon.Presentation.Pages

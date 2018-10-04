@@ -1,5 +1,5 @@
 ﻿using GameManagement;
-using UiGenerics;
+using Graphene.UiGenerics;
 using UnityEngine.UI;
 
 namespace Graphene.DisconnectionDungeon.Presentation.Buttons

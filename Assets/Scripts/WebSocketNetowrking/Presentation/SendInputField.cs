@@ -1,4 +1,4 @@
-﻿using UiGenerics;
+﻿using Graphene.UiGenerics;
 using UnityEngine;
 using UnityEngine.UI;
 
