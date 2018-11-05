@@ -31,3 +31,12 @@
 [submodule "Packages/Behavior-Tree"]
 	path = Packages/Behavior-Tree
 	url = git@github.com:yuriaicruz/Unity-Behaviour-Tree.git
+[submodule "Packages/ShaderLib"]
+	path = Packages/ShaderLib
+	url = git@github.com:YuriAICruz/Unity-ShaderLib.git
+[submodule "Packages/WebSocket"]
+	path = Packages/WebSocket
+	url = git@github.com:YuriAICruz/Unity-WebSocket.git
+[submodule "Packages/GameManager"]
+	path = Packages/GameManager
+	url = git@github.com:YuriAICruz/Unity-Gamemanager.git
