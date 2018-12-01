@@ -1,8 +1,7 @@
 ﻿using System.Collections;
 using Graphene.Acting;
 using Graphene.Acting.Collectables;
-using Graphene.DisconnectionDungeon.Collectable;
-using Graphene.DisconnectionDungeon.InputSystem;
+using Graphene.InputManager.Platformer;
 using UnityEngine;
 using Physics = UnityEngine.Physics;
 
@@ -16,7 +15,7 @@ namespace Graphene.DisconnectionDungeon
 
         private SpriteRenderer _renderer;
 
-        private DisconnectionDungeonInputManager _input;
+        private PlatformerInputManager _input;
         private bool _moving;
         private IInteractible _currentIntreactible;
 
@@ -26,7 +25,7 @@ namespace Graphene.DisconnectionDungeon
         {
             Life.OnDie += Die;
 
-            _input = new DisconnectionDungeonInputManager();
+            _input = new PlatformerInputManager();
             _input.Left_Axis += Move;
             _input.Interact += Interact;
             _input.Pause += Pause;

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using Graphene.Acting;
 using Graphene.Acting.Collectables;
+using Graphene.Acting.Platformer;
+using Graphene.Physics.Platformer;
 using UnityEngine;
 
 namespace Graphene.DisconnectionDungeon.PuzzleObjects

@@ -11,7 +11,8 @@
         "Graphene.WebSocketsNetworking",
         "Graphene.InputManager",
         "Graphene.InputManagerEditor",
-        "Graphene.BehaviourTree"
+        "Graphene.BehaviourTree",
+        "Graphene.CameraManagement"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [],

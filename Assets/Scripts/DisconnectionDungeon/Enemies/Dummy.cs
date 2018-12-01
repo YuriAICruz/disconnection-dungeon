@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Graphene.Acting.Platformer;
 using Graphene.BehaviourTree;
 using Graphene.BehaviourTree.Actions;
 using Graphene.BehaviourTree.Composites;
@@ -8,7 +9,7 @@ using Behaviour = Graphene.BehaviourTree.Behaviour;
 
 namespace Graphene.DisconnectionDungeon.Enemies
 {
-    public class Dummy : DActor
+    public class Dummy : PlatformerActor
     {
         enum BlackboardIds
         {
