@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Graphene.Acting;
+using Graphene.Acting.Interfaces;
 using Graphene.DisconnectionDungeon.Collectable;
 using UnityEngine;
 

@@ -1,4 +1,5 @@
 ﻿using Graphene.Acting;
+using Graphene.Acting.Interfaces;
 using Graphene.DisconnectionDungeon.Collectable;
 
 namespace Graphene.DisconnectionDungeon.Interactible

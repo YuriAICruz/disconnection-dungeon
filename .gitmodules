@@ -40,3 +40,6 @@
 [submodule "Packages/GameManager"]
 	path = Packages/GameManager
 	url = git@github.com:YuriAICruz/Unity-Gamemanager.git
+[submodule "Packages/CamMan"]
+	path = Packages/CamMan
+	url = git@github.com:YuriAICruz/Unity-CameraManagement.git

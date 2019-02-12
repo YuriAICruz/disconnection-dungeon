@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using Graphene.Acting;
 using Graphene.Acting.Collectables;
+using Graphene.Acting.Interfaces;
 using Graphene.InputManager.Platformer;
 using UnityEngine;
 using Physics = UnityEngine.Physics;
