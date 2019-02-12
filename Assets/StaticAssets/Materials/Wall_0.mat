@@ -5,7 +5,8 @@ Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: Wall_0
   m_Shader: {fileID: 4800000, guid: 112f321e45f071c4d8dae1d84e15417d, type: 3}
   m_ShaderKeywords: _METALLICGLOSSMAP _NORMALMAP
@@ -82,6 +83,7 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _TimeReset: 0
+    - _Timelapse: 0.46
     - _Timeline: 1
     - _UVSec: 0
     - _ZWrite: 1
