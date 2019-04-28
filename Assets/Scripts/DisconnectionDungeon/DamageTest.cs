@@ -1,4 +1,5 @@
 ﻿using Graphene.Acting;
+using Graphene.Acting.Interfaces;
 using UnityEngine;
 
 namespace Graphene.DisconnectionDungeon
