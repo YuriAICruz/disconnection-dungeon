@@ -2084,6 +2084,8 @@ GameObject:
   - component: {fileID: 54520708179443846}
   - component: {fileID: 114517751115822364}
   - component: {fileID: 114489942933921096}
+  - component: {fileID: 1391031737411035861}
+  - component: {fileID: 6749311611713008089}
   m_Layer: 8
   m_Name: PlayerWS
   m_TagString: Untagged
@@ -2177,9 +2179,6 @@ MonoBehaviour:
     RecoveryRate: 1
   Speed: 5
   _dodgeDuration: 0.3
-  _input:
-    debug: 0
-    dataPath: Input/InputData
 --- !u!114 &114489942933921096
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2194,6 +2193,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 0
   SpawnId: 0
+--- !u!114 &1391031737411035861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1916740180118826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcc89bf6ef7e692439aca41e86b9a93b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debug: 0
+  dataPath: Input/InputData
+--- !u!114 &6749311611713008089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1916740180118826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec6cc5c77a274cd2926e2fd6cdeb63b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Collider: {fileID: 0}
+  Rigidbody: {fileID: 0}
+  GroundMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  _radius: 0
+  _collider: {fileID: 0}
 --- !u!1 &1937141670505692
 GameObject:
   m_ObjectHideFlags: 0

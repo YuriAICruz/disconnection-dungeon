@@ -957,13 +957,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1802582021744604, guid: 8bc6226edfc49304baf3fb8400137e9f, type: 3}
+      propertyPath: m_Name
+      value: PushableBox
+      objectReference: {fileID: 0}
     - target: {fileID: 4927585443135754, guid: 8bc6226edfc49304baf3fb8400137e9f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.28
       objectReference: {fileID: 0}
     - target: {fileID: 4927585443135754, guid: 8bc6226edfc49304baf3fb8400137e9f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5
+      value: 3.001
       objectReference: {fileID: 0}
     - target: {fileID: 4927585443135754, guid: 8bc6226edfc49304baf3fb8400137e9f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -988,6 +992,32 @@ PrefabInstance:
     - target: {fileID: 4927585443135754, guid: 8bc6226edfc49304baf3fb8400137e9f, type: 3}
       propertyPath: m_RootOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4927585443135754, guid: 8bc6226edfc49304baf3fb8400137e9f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4927585443135754, guid: 8bc6226edfc49304baf3fb8400137e9f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4927585443135754, guid: 8bc6226edfc49304baf3fb8400137e9f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 54658075491764290, guid: 8bc6226edfc49304baf3fb8400137e9f,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 54658075491764290, guid: 8bc6226edfc49304baf3fb8400137e9f,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 913835998, guid: 8bc6226edfc49304baf3fb8400137e9f, type: 3}
+      propertyPath: GroundMask.m_Bits
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8bc6226edfc49304baf3fb8400137e9f, type: 3}
