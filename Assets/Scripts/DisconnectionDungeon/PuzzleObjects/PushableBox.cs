@@ -25,7 +25,7 @@ namespace Graphene.DisconnectionDungeon.PuzzleObjects
             _collider = GetComponent<BoxCollider>();
             _collider.isTrigger = false;
 
-            Physics.SetCollider(_collider, GetComponent<Rigidbody>());
+            //Physics.SetCollider(_collider, GetComponent<Rigidbody>());
         }
 
         public void Collect(Actor actor)

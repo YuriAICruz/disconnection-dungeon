@@ -44,11 +44,6 @@ namespace Graphene.DisconnectionDungeon
             _manager = DDManager.Instance;
         }
 
-        private void OnDestroy()
-        {
-            _input.OnDestroy();
-        }
-
         private void Move(Vector2 dir)
         {
             var dirInt = new Vector2Int((int) (dir.x), (int) (dir.y));

@@ -2,7 +2,6 @@
     "name": "DisconnectionDungeon",
     "references": [
         "Graphene.Acting",
-        "Physics",
         "Graphene.Utils",
         "Graphene.GameManagement",
         "Graphene.UiGenerics",
@@ -12,10 +11,15 @@
         "Graphene.InputManager",
         "Graphene.InputManagerEditor",
         "Graphene.BehaviourTree",
-        "Graphene.CameraManagement"
+        "Graphene.CameraManagement",
+        "Graphene.Physics"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [],
     "excludePlatforms": [],
-    "allowUnsafeCode": false
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": []
 }
