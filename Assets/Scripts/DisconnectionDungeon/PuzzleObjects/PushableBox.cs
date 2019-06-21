@@ -9,15 +9,15 @@ using UnityEngine;
 
 namespace Graphene.DisconnectionDungeon.PuzzleObjects
 {
+    [RequireComponent(typeof(EnviromentPhysics))]
     [RequireComponent(typeof(BoxCollider))]
-    [RequireComponent(typeof(Rigidbody))]
     public class PushableBox : MonoBehaviour, ICollectable
     {
         private BoxCollider _collider;
         
         private bool _moving;
 
-        public EnviromentPhysics Physics;
+        private EnviromentPhysics _physics;
         [SerializeField] private float Dist;
 
         private void Awake()
@@ -25,7 +25,7 @@ namespace Graphene.DisconnectionDungeon.PuzzleObjects
             _collider = GetComponent<BoxCollider>();
             _collider.isTrigger = false;
 
-            //Physics.SetCollider(_collider, GetComponent<Rigidbody>());
+            _physics = GetComponent<EnviromentPhysics>();
         }
 
         public void Collect(Actor actor)
@@ -44,7 +44,7 @@ namespace Graphene.DisconnectionDungeon.PuzzleObjects
             dir.y = 0;
             dir.Normalize();
 
-            if (_moving || Physics.CheckCollision(transform.position, dir)) return;
+            if (_moving || _physics.CheckCollision(transform.position, dir)) return;
 
             StartCoroutine(Mover(dir, player.Speed));
         }

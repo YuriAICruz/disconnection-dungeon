@@ -8,6 +8,8 @@ using Physics = UnityEngine.Physics;
 
 namespace Graphene.DisconnectionDungeon
 {
+    [RequireComponent(typeof(PlatformerInputManager))]
+    [RequireComponent(typeof(CharacterPhysicsLegacy))]
     public class PlayerLegacy : Actor
     {
         private DDManager _manager;
@@ -26,12 +28,14 @@ namespace Graphene.DisconnectionDungeon
         {
             Life.OnDie += Die;
 
-            _input = new PlatformerInputManager();
+            _input = GetComponent<PlatformerInputManager>();
             _input.Left_Axis += Move;
             _input.Interact += Interact;
             _input.Pause += Pause;
 
             _renderer = GetComponent<SpriteRenderer>();
+
+            Physics = GetComponent<CharacterPhysicsLegacy>();
             
             Physics.SetCollider(GetComponent<Collider2D>());
 
@@ -43,7 +47,7 @@ namespace Graphene.DisconnectionDungeon
         {
             _manager = DDManager.Instance;
         }
-
+        
         private void Move(Vector2 dir)
         {
             var dirInt = new Vector2Int((int) (dir.x), (int) (dir.y));

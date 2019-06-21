@@ -2,6 +2,7 @@
     "name": "DisconnectionDungeon",
     "references": [
         "Graphene.Acting",
+        "Graphene.Physics",
         "Graphene.Utils",
         "Graphene.GameManagement",
         "Graphene.UiGenerics",
@@ -11,8 +12,7 @@
         "Graphene.InputManager",
         "Graphene.InputManagerEditor",
         "Graphene.BehaviourTree",
-        "Graphene.CameraManagement",
-        "Graphene.Physics"
+        "Graphene.CameraManagement"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [],
